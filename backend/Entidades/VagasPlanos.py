@@ -1,3 +1,5 @@
+from Entidades.Vagas import Vagas
+
 class VagasPlanos(Vagas):
 
     def __init__(self, idvaga, localizacao):

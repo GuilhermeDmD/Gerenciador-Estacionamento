@@ -4,10 +4,10 @@ class Vagas:
         self.localizacao = localizacao
         self.disponivel = True
 
-    def ocuparVaga(self):
-        self.disponivel = False
+    # def ocuparVaga(self):
+    #     self.disponivel = False
 
-    def liberarVaga(self):
-        self.disponivel = True
+    # def liberarVaga(self):
+    #     self.disponivel = True
         
 
