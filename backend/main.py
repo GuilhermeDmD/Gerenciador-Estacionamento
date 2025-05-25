@@ -3,8 +3,9 @@ from Entidades.Veiculo import Veiculo
 from Entidades.VagasComum import VagasComum
 
 controle = ControleEstac()
-veiculo = Veiculo(1, "placa", "modelo", "cor", "dataEntrada", "horaEntrada")
-vaga = VagasComum(2, "localizacao", "categoria", "valor")
-controle.addVeiculo(veiculo, vaga)
+veiculo = Veiculo("", "123hj89", "gol", "vermelho")
+vaga = VagasComum(1, "c1", "coberta", 10)
+#controle.addVeiculoAvulso(veiculo, vaga)
+# controle.encerrarVeiculo(veiculo)
 
 
