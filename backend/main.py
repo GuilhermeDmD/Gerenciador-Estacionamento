@@ -1,10 +1,10 @@
 from Controle.ControleEstac import ControleEstac
 from Entidades.Veiculo import Veiculo
-from Entidades.VagasComum import VagasComum
+from Entidades.Vagas import Vagas
 
 controle = ControleEstac()
 veiculo = Veiculo("", "123hj89", "gol", "vermelho")
-vaga = VagasComum(1, "c1", "coberta", 10)
+vaga = Vagas(1, "c1", "Avulsa")
 #controle.addVeiculoAvulso(veiculo, vaga)
 # controle.encerrarVeiculo(veiculo)
 
