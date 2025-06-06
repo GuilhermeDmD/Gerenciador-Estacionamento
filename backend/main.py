@@ -4,8 +4,9 @@ from Entidades.Vagas import Vagas
 
 controle = ControleEstac()
 veiculo = Veiculo("", "123hj89", "gol", "vermelho")
+v1 = Veiculo("", "stosB2", "ferrai", "prata")
 vaga = Vagas(1, "c1", "Avulsa")
-#controle.addVeiculoAvulso(veiculo, vaga)
-# controle.encerrarVeiculo(veiculo)
-
-
+vag = Vagas("2", "moto", "avulsa")
+#controle.encerrarVeiculo(veiculo)
+controle.addVeiculoAvulso(veiculo, vaga)
+controle.addVeiculoAvulso(v1, vag)

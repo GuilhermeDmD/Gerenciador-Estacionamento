@@ -6,37 +6,34 @@ from conexaoBD import conexaoBD
 
 
 class ControleEstac:
-     def __init__(self):
-          self.conexao = conexaoBD()
-          self.cliente = controleCliente()
+    def __init__(self):
+        self.conexao = conexaoBD()
+        self.cliente = controleCliente()
 
-     
-     def buscarVeiculo(self):
-          pass
+    def buscarVeiculo(self):
+        pass
 
-     def mostrarVeiculos(self):
-          pass
-     
-     #testado e funcionando
-     def addVeiculoAvulso(self, Veiculo: Veiculo, Vagas: Vagas):
-          inserirVeiculo = f'INSERT INTO tb_veiculo(id_veiculo, placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES(null, "{Veiculo.placa}", "{Veiculo.modelo}", "{Veiculo.cor}", "Ativo", null)'
-          self.conexao.cursor.execute(inserirVeiculo)
-          #self.conexao.conexao.commit()
-          print(f"Veículo adicionado: {Veiculo.modelo} \nVaga: {Vagas.localizacao}")
-     
-     #testado e funcionando 
-     def encerrarVeiculo(self, Veiculo: Veiculo):
-          removerVeiculo = f'update tb_veiculo set estado = "Excluído" where placa_veiculo = "{Veiculo.placa}"'
-          self.conexao.cursor.execute(removerVeiculo)
-          self.conexao.conexao.commit()
-          print("Veículo removido")
+    def mostrarVeiculos(self):
+        pass
 
-     #não foi testado ainda
-     def addVeiculoMensal(self, Veiculo: Veiculo, Cliente:Cliente ):
-          idCliente = self.cliente.buscarCliente(Cliente)
-          inserirVeiculoMensal = f'INSERT INTO tb_veiculo(id_veiculo, placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES(null, "{Veiculo.placa}", "{Veiculo.modelo}", "{Veiculo.cor}", "Ativo", {idCliente})'
-          self.conexao.cursor.execute(inserirVeiculoMensal)
-          self.conexao.conexao.commit()
-          print("Veículo mensal cadastrado")
-          
-     
+    # testado e funcionando
+    def addVeiculoAvulso(self, Veiculo: Veiculo, Vagas: Vagas):
+        inserirVeiculo = f'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES("{Veiculo.placa}", "{Veiculo.modelo}", "{Veiculo.cor}", "Ativo", null)'
+        self.conexao.cursor.execute(inserirVeiculo)
+        self.conexao.conexao.commit()
+        print(f"Veículo adicionado: {Veiculo.modelo} \nVaga: {Vagas.localizacao}")
+
+    # testado e funcionando, esse talvez não seja necessário
+    def encerrarVeiculo(self, Veiculo: Veiculo):
+        removerVeiculo = f'update tb_veiculos set estado = "Excluído" where placa_veiculo = "{Veiculo.placa}"'
+        self.conexao.cursor.execute(removerVeiculo)
+        self.conexao.conexao.commit()
+        print("Veículo removido")
+
+    # não foi testado ainda
+    def addVeiculoMensal(self, Veiculo: Veiculo, Cliente: Cliente):
+        idCliente = self.cliente.buscaIdCliente(Cliente)
+        inserirVeiculoMensal = f'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES("{Veiculo.placa}", "{Veiculo.modelo}", "{Veiculo.cor}", "Ativo", {idCliente})'
+        self.conexao.cursor.execute(inserirVeiculoMensal)
+        self.conexao.conexao.commit()
+        print("Veículo mensal cadastrado")
