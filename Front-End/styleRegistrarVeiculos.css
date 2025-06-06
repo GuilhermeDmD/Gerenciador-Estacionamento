@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    display: flex;
+    height: 100vh;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-color: #A89898;
+}
+
+.topo {
+    font-size: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.topo a {
+    display: block;
+    padding: 10px 20px;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    text-align: center;
+}
+
+nav {
+    width: 400px;
+    background-color: #A5826F;
+    display: flex;
+    font-size: 20px;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 0 50px 0;
+}
+
+nav :hover .meu_botao {
+    background-color: #FFBD59;
+}
+
+nav .meu_botao {
+    margin: 40px auto;
+    height: 135px;
+    background-color: #D9D9D9;
+    padding: 30px;
+    font-size: 20px;
+    border-radius: 30px;
+    width: 315px;
+    display: block;
+}
+
+main {
+    flex: 1;
+    background-color: #d8cfcf;
+    overflow-y: auto;
+}
+
+.pesquisa {
+    margin: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pesquisa form {
+    display: flex;
+    gap: 5px;
+}
+
+.pesquisa input[type="text"] {
+    padding: 10px 55px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 20px;
+    outline: none;
+}
+
+.pesquisa button {
+    padding: 5px 20px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pesquisa button:hover {
+    background-color: #FFBD59;
+}
+
+/* Conteúdo principal */
+.conteudo-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* Detalhes */
+.detales,
+.dete {
+    background-color: #C9D0D9;
+    border: 15px solid #9A9A9A;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.detales {
+    width: 90%;
+    max-width: 1500px;
+    height: 250px;
+}
+
+.dete {
+    width: 90%;
+    max-width: 600px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+/* Formulários de dados */
+.modelo,
+.cor,
+.placa,
+.data,
+.hora {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modelo form,
+.cor form,
+.placa form,
+.data form,
+.hora form {
+    display: flex;
+    gap: 5px;
+}
+
+.modelo input,
+.cor input,
+.placa input,
+.data input,
+.hora input {
+    padding: 10px 55px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 20px;
+    outline: none;
+}
+
+.modelo button,
+.cor button,
+.placa button,
+.data button,
+.hora button {
+    padding: 5px 30px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modelo button:hover,
+.cor button:hover,
+.placa button:hover,
+.data button:hover,
+.hora button:hover {
+    background-color: #FFBD59;
+}
+
+/* Buscar */
+.buscar {
+    margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buscar form {
+    display: flex;
+    gap: 5px;
+}
+
+.buscar input[type="text"] {
+    padding: 10px 30px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 20px;
+    outline: none;
+}
+
+.buscar button {
+    padding: 5px 20px;
+    background-color: #ffefef;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buscar button:hover {
+    background-color: #FFBD59;
+}
+.botao {
+    display: flex;
+    justify-content: center;
+    gap: 250px; /* <<< aumenta o espaço entre os botões */
+    flex-wrap: wrap; /* permite quebrar para baixo se necessário */
+    padding: 50px;
+}
+.registro {
+    background-color: #10AA4F;
+    padding: 15px 60px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+.limpa {
+    background-color: #D6C815;
+    padding: 15px 60px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+.finaliza {
+    background-color: #FF5757;
+    padding: 15px 60px;
+    font-size: 20px;
+    border-radius: 50px;
+}
