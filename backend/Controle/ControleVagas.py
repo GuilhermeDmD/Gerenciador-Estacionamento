@@ -12,10 +12,10 @@ class ControleVaga:
         return idVaga
     
     #não testado 
-    def buscarVaga(self):
+    def buscarVaga(self, Vagas: Vagas):
         vagaDados = []
-        vagaId = self.buscarIdVaga()
-        comandoSql = f'select localizacao, disponibilidade, tipo from tb_vagas where idVaga = "{vagaId}"'
+        vagaId = self.buscarIdVaga(Vagas)
+        comandoSql = f'select localizacao, disponibilidade, tipo from tb_vagas where idVaga = {vagaId}'
         self.conexao.cursor.execute(comandoSql)
         vagaPesquisada = self.conexao.cursor.fetchall()
         for vaga in vagaPesquisada:
@@ -32,5 +32,13 @@ class ControleVaga:
             vagasDict = {"localizao":vagaItem[0], "disponibilidade":vagaItem[1], "tipo":vagaItem[2]}
             vagasDados.append(vagasDict)
         print(vagasDados)
+
+    #não testado
+    def alterarTipoVaga(self, Vagas: Vagas, novoTipo):
+        idVaga = self.buscarIdVaga(Vagas)
+        comandoSql = f'update tb_vagas set tipo = "{novoTipo}" where idVaga = {idVaga}'
+        self.conexao.cursor.execute(comandoSql)
+        self.conexao.conexao.commit()
+
         
 

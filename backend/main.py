@@ -10,3 +10,5 @@ vag = Vagas("2", "moto", "avulsa")
 #controle.encerrarVeiculo(veiculo)
 controle.addVeiculoAvulso(veiculo, vaga)
 controle.addVeiculoAvulso(v1, vag)
+
+#testar os métodos da Vagas, Clientes, Planos
