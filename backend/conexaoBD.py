@@ -1,6 +1,6 @@
 import mysql.connector
 
-class conexaoBD:
+class ConexaoBD:
     def __init__(self):
         self.conexao = mysql.connector.connect(
             host = 'localhost',
@@ -15,7 +15,6 @@ class conexaoBD:
     def confirmarAlteracao(self):
         self.conexao.commit()
         
-
     def fecharConexao(self):
         self.cursor.close()
         self.conexao.close()

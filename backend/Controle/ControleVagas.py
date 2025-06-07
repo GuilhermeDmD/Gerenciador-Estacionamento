@@ -40,5 +40,6 @@ class ControleVaga:
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
 
+
         
 

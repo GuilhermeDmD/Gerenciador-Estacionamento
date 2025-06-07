@@ -3,11 +3,11 @@ from Controle.ControlePlanos import ControlePlanos
 from Controle.ControleVagas import ControleVaga
 from Entidades.Plano import Planos
 from Entidades.Vagas import Vagas
-from conexaoBD import conexaoBD
+from ConexaoBD import ConexaoBD
 
-class controleCliente:
+class ControleCliente:
     def __init__(self):
-        self.conexao = conexaoBD()
+        self.conexao = ConexaoBD()
         self.plano = ControlePlanos()
         self.vaga = ControleVaga() 
         pass

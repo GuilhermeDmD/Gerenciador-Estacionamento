@@ -1,17 +1,17 @@
 from Entidades.Plano import Planos
-from conexaoBD import conexaoBD 
+from ConexaoBD import ConexaoBD 
 class ControlePlanos:
     def __init__(self):
-        self.conexao = conexaoBD()
+        self.conexao = ConexaoBD()
 
-    def buscarPlanoID(self, Planos: Planos):
-        comandoSql = f'SELECT idPlano from tb_planos where nome_plano = "{Planos.nomePlano}"'
+    def buscarPlanoID(self, planos: Planos):
+        comandoSql = f'SELECT idPlano from tb_planos where nome_plano = "{planos.nomePlano}"'
         self.conexao.cursor.execute(comandoSql)
         idPlano = self.conexao.cursor.fetchone()
         return idPlano
     
-    def buscarUmPlano(self, Planos: Planos):
-        id = self.buscarPlanoID(Planos)
+    def buscarUmPlano(self, planos: Planos):
+        id = self.buscarPlanoID(planos)
         comandoSql = f'SELECT * FROM tb_planos where idPlanos = {id}'
         self.conexao.cursor.execute(comandoSql)
         plano = self.conexao.cursor.fetchone
@@ -27,8 +27,8 @@ class ControlePlanos:
             planos.append(dictPlanos)
         print(planos)
 
-    def addPlano(self, Planos: Planos):
-        comandoSql = f'INSERT INTO tb_planos(nome_plano, descricao_plano, valor_plano) values("{Planos.nomePlano}", "{Planos.descricao}", {Planos.valorPlano})'
+    def addPlano(self, planos: Planos):
+        comandoSql = f'INSERT INTO tb_planos(nome_plano, descricao_plano, valor_plano) values("{planos.nomePlano}", "{planos.descricao}", {planos.valorPlano})'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
 
@@ -43,8 +43,8 @@ class ControlePlanos:
             self.conexao.cursor.execute(edicaoFloat)
             self.conexao.conexao.commit()
 
-    def delPlano(self, Planos:Planos):
-        idPlano = self.buscarPlanoID(Planos)
+    def delPlano(self, planos:Planos):
+        idPlano = self.buscarPlanoID(planos)
         comandoSql = f"delete from tb_planos where idPlano = {idPlano}"
         self.conexao.cursor.execute(comandoSql)
         # self.conexao.conexao.commit()
