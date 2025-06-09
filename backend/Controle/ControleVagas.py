@@ -1,20 +1,20 @@
-from conexaoBD import conexaoBD
+from ConexaoBD import ConexaoBD
 from Entidades.Vagas import Vagas
 class ControleVaga:
     def __init__(self):
-        self.conexao = conexaoBD()
+        self.conexao = ConexaoBD()
 
     #não testado
-    def buscarIdVaga(self, Vagas: Vagas):
-        comando = f'select id_vaga from tb_vagas where localizao = "{Vagas.localizacao}"'
+    def buscarIdVaga(self, vagas: Vagas):
+        comando = f'select id_vaga from tb_vagas where localizao = "{vagas.localizacao}"'
         self.conexao.cursor.execute(comando)
         idVaga = self.conexao.cursor.fetchone()
         return idVaga
     
     #não testado 
-    def buscarVaga(self, Vagas: Vagas):
+    def buscarVaga(self, vagas: Vagas):
         vagaDados = []
-        vagaId = self.buscarIdVaga(Vagas)
+        vagaId = self.buscarIdVaga(vagas)
         comandoSql = f'select localizacao, disponibilidade, tipo from tb_vagas where idVaga = {vagaId}'
         self.conexao.cursor.execute(comandoSql)
         vagaPesquisada = self.conexao.cursor.fetchall()

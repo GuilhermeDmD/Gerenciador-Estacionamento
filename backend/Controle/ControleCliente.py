@@ -12,8 +12,8 @@ class ControleCliente:
         self.vaga = ControleVaga() 
         pass
         
-    def buscaIdCliente(self, Cliente: Cliente):
-        busca = f'select id_cliente from tb_cliente where cpf_cliente = "{Cliente.cpf}"'
+    def buscaIdCliente(self, cliente: Cliente):
+        busca = f'select id_cliente from tb_cliente where cpf_cliente = "{cliente.cpf}"'
         self.conexao.cursor.execute(busca)
         idCliente = self.conexao.cursor.fetchone()
         return idCliente
@@ -28,10 +28,10 @@ class ControleCliente:
             listaClientes.append(clienteDict)
         print(listaClientes)
 
-    def addCliente(self, Cliente:Cliente, Vagas:Vagas, Planos:Planos):
-        idVaga = self.vaga.buscarIdVaga(Vagas)
-        idPlano = self.plano.buscarPlanoID(Planos)
-        comandoSql = f'insert into tb_clientes(nome_cliente, cpf_cliente, telefone_cliente, email_cliente, id_plano_fk, id_vaga_fk) values ("{Cliente.nome}", "{Cliente.cpf}", "{Cliente.telefone}", "{Cliente.email}", {idPlano}, {idVaga})'
+    def addCliente(self, cliente:Cliente, vagas:Vagas, planos:Planos):
+        idVaga = self.vaga.buscarIdVaga(vagas)
+        idPlano = self.plano.buscarPlanoID(planos)
+        comandoSql = f'insert into tb_clientes(nome_cliente, cpf_cliente, telefone_cliente, email_cliente, id_plano_fk, id_vaga_fk) values ("{cliente.nome}", "{cliente.cpf}", "{cliente.telefone}", "{cliente.email}", {idPlano}, {idVaga})'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
 
