@@ -10,14 +10,15 @@ class ControleCliente:
         self.conexao = ConexaoBD()
         self.plano = ControlePlanos()
         self.vaga = ControleVaga() 
-        pass
-        
+      
+    # TESTADO E FUNCIONANDO    
     def buscaIdCliente(self, cliente: Cliente):
-        busca = f'select id_cliente from tb_cliente where cpf_cliente = "{cliente.cpf}"'
+        busca = f'select id_cliente from tb_clientes where cpf_cliente = "{cliente.cpf}"'
         self.conexao.cursor.execute(busca)
         idCliente = self.conexao.cursor.fetchone()
-        return idCliente
+        return idCliente[0]
     
+    #TESTADO E FUNCIONANDO
     def mostrarClientes(self):
         listaClientes = []
         comandoSql = 'select nome_cliente, cpf_cliente, telefone_cliente, email_cliente, id_plano_fk, id_vaga_fk from tb_clientes'
@@ -28,9 +29,12 @@ class ControleCliente:
             listaClientes.append(clienteDict)
         print(listaClientes)
 
+    #TESTADO FUNCIONANDO
     def addCliente(self, cliente:Cliente, vagas:Vagas, planos:Planos):
         idVaga = self.vaga.buscarIdVaga(vagas)
         idPlano = self.plano.buscarPlanoID(planos)
+        print(idVaga)
+        print(idPlano)
         comandoSql = f'insert into tb_clientes(nome_cliente, cpf_cliente, telefone_cliente, email_cliente, id_plano_fk, id_vaga_fk) values ("{cliente.nome}", "{cliente.cpf}", "{cliente.telefone}", "{cliente.email}", {idPlano}, {idVaga})'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()

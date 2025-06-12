@@ -5,15 +5,17 @@ class ControleVeiculo:
     def __init__(self):
         self.conexao = ConexaoBD()
     
+    #TESTADO E FUNCIONANDO
     def buscarIdVeiculo(self, veiculo:Veiculo):
         comandoSql = f'select id_veiculo from tb_veiculos where placa_veiculo = "{veiculo.placa}"'
         self.conexao.cursor.execute(comandoSql)
         idVeiculo = self.conexao.cursor.fetchone()
-        return idVeiculo
+        return idVeiculo[0]
     
+    # TESTADO E FUNCIONANDO
     def mostrarVeiculo(self):
         listaVeiculos = []
-        comandoSql = f'select placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente__fk from tb_veiculos'
+        comandoSql = f'select placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk from tb_veiculos'
         self.conexao.cursor.execute(comandoSql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
         for veiculoInfo in resultadoPesquisa:

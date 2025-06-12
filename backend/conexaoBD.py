@@ -6,11 +6,11 @@ class ConexaoBD:
             host = 'localhost',
             user = 'root',
             #adicione aqui a sua senha para acessar o Workbeach
-            password = "fab08052005?",
+            password = "Sua senha",
             database = 'bd_estacionamento'
         )
         self.cursor = self.conexao.cursor()
-        print("conexão com banco funcionando")
+       # print("conexão com banco funcionando")
 
     def confirmarAlteracao(self):
         self.conexao.commit()

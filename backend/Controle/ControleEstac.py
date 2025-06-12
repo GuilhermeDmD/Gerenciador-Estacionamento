@@ -23,7 +23,7 @@ class ControleEstac:
         self.conexao.conexao.commit()
         print("Veículo removido")
 
-    # não foi testado ainda
+    # TESTADO E FUNCIONANDO
     def addVeiculoMensal(self, veiculo: Veiculo, cliente: Cliente):
         idCliente = self.cliente.buscaIdCliente(cliente)
         inserirVeiculoMensal = f'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES("{veiculo.placa}", "{veiculo.modelo}", "{veiculo.cor}", "Ativo", {idCliente})'
