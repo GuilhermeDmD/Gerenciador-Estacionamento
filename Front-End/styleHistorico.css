@@ -73,3 +73,50 @@ main {
     flex: 1;
     background-color: #bebbbb;
 }
+
+.titulo {
+    margin: auto;
+    font-size: 30px;
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    gap: 250px; 
+    flex-wrap: wrap; 
+    padding: 50px;
+}
+
+
+.pesquisar {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.pesquisar form {
+    display: flex;
+    gap: 5px;
+}
+
+.pesquisar input[type="text"] {
+    padding: 10px 30px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 20px;
+    outline: none;
+}
+
+.pesquisar button {
+    padding: 5px 10px;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pesquisar button:hover {
+    background-color: #FFBD59;
+}
