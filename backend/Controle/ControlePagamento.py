@@ -10,6 +10,7 @@ class ControlePagamento:
         self.clienteControle = ControleCliente()
         self.veiculoControle = ControleVeiculo()
 
+    #Testado e funcionando
     def pagamentoAvulso(self, veiculo:Veiculo):
         idVeiculo = self.veiculoControle.buscarIdVeiculo(veiculo)
         comandoSql = f'select valor_total, id_veiculo_fk from tb_pagamento where id_veiculo_fk = {idVeiculo}'
@@ -17,9 +18,10 @@ class ControlePagamento:
         infomacoesPag = self.conexao.cursor.fetchone()
         print(infomacoesPag)
 
+    #testado e funcionando
     def pagamentoMensal(self, cliente:Cliente):
         idCliente = self.clienteControle.buscaIdCliente(cliente)
-        comandoSql = f'select valor_total, id_cliente_fk from tb_pagamentos where id_cliente_fk = {idCliente}'
+        comandoSql = f'select valor_total, id_cliente_fk from tb_pagamento where id_cliente_fk = {idCliente}'
         self.conexao.cursor.execute(comandoSql)
         informacoesPag = self.conexao.cursor.fetchone()
         print(informacoesPag)

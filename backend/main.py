@@ -4,6 +4,7 @@ from Controle.ControleVagas import ControleVaga
 from Controle.ControlePlanos import ControlePlanos
 from Controle.ControleHist import ControleHist
 from Controle.ControleVeiculo import ControleVeiculo
+from Controle.ControlePagamento import ControlePagamento
 
 from Entidades.Veiculo import Veiculo
 from Entidades.Vagas import Vagas
@@ -39,4 +40,6 @@ edicao2 = 10
 controleHist = ControleHist()
 controleVeiculo = ControleVeiculo()
 controleVaga = ControleVaga()
-controleVaga.alterarTipoVaga(vg1, "Avulso")
+controlePgt = ControlePagamento()
+
+controlePgt.pagamentoMensal(c1)
