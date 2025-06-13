@@ -20,6 +20,10 @@ header {
     background-color: #A89898;
 }
 
+.topo a:hover { 
+    background-color: #FFBD59;
+}
+
 .topo {
     font-size: 20px;
     display: flex;
@@ -58,6 +62,17 @@ nav .meu_botao {
     border-radius: 30px;
     width: 315px;
     display: block;
+}
+nav .meu_botao1 {
+    margin: 40px auto;
+    height: 135px;
+    background-color: #D9D9D9;
+    padding: 30px;
+    border-radius: 30px;
+    font-size: 20px;
+    width: 315px;
+    display: block;
+    background-color: #FFBD59;
 }
 
 main {

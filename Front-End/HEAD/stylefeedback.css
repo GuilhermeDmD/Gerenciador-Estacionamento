@@ -20,10 +20,6 @@ header {
     background-color: #A89898;
 }
 
-.topo a:hover { 
-    background-color: #FFBD59;
-}
-
 .topo {
     font-size: 20px;
     display: flex;
@@ -63,18 +59,6 @@ nav .meu_botao {
     border-radius: 30px;
     width: 315px;
     display: block;
-}
-
-nav .meu_botao1 {
-    margin: 40px auto;
-    height: 135px;
-    background-color: #D9D9D9;
-    padding: 30px;
-    border-radius: 30px;
-    font-size: 20px;
-    width: 315px;
-    display: block;
-    background-color: #FFBD59;
 }
 
 button {
@@ -135,4 +119,37 @@ main {
 
 .pesquisar button:hover {
     background-color: #FFBD59;
+}
+
+.topo a:hover { 
+    background-color: #FFBD59;
+}
+
+.git{ 
+    margin: 5px;
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.retangulo {
+    width: 700px;
+    height: 100px;
+    margin-top: 100px;
+    margin: auto;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px; /* Aumentei o raio da borda */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.retangulo>p{ 
+    text-align: justify;
+
 }
