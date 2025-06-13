@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylefeedback.css">
+    <link rel="stylesheet" href="styleanotacoes.css">
 
-    <title>Ajuda</title>
+    <title>Anotações</title>
 </head>
 <body>
     <header>
         <div class="topo">
             <a href="Arquivos.html">Arquivos</a>
-            <a href="Anotacoes.html">Anotações</a>
+            <a style="background-color: #FFBD59;" href="Anotacoes.html">Anotações</a>
             <a href="Financeiro.html">Financeiro</a>
-            <a style="background-color: #FFBD59; "href="feedback.html">Feedback</a>
+            <a href="feedback.html">Feedback</a>
 
         </div>
         
@@ -34,16 +34,16 @@
     </nav>
     <main class="historico">
         <div class="titulo">
-             <h1>Feedback</h1>
+             <h1>Bloco de notas</h1>
         </div>
 
-        <div class ='git'>
-            <a href="https://github.com/GuilhermeDmD/Gerenciador-Estacionamento" target="_blank"><img src="../img/git.png" alt=""> </a>
+        <div class="bloco">
+            <h3>Digite a data e a sua anotação</h1>
+            <textarea id="notepad" placeholder="Comece a escrever suas notas aqui..."></textarea>
+            <p class="info">Caro usuário: Suas notas são salvas automaticamente no seu navegador.</p>
         </div>
-
-        <div class="retangulo">
-            <p>Visitante, se você tiver alguma sugestão de melhoria pedimos, por gentileza, que clique na imagem e após ser redirecionado ao github nos deixe uma Issue.</p>
-        </div>
+    
+        <script src="bloco.js"></script>
         
 
     </main>
