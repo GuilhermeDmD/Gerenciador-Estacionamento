@@ -10,11 +10,10 @@ class ControleEstac:
         self.cliente = ControleCliente()
 
     # testado e funcionando
-    def addVeiculoAvulso(self, veiculo: Veiculo, vagas: Vagas):
+    def addVeiculoAvulso(self, veiculo: Veiculo):
         inserirVeiculo = f'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES("{veiculo.placa}", "{veiculo.modelo}", "{veiculo.cor}", "Ativo", null)'
         self.conexao.cursor.execute(inserirVeiculo)
         self.conexao.conexao.commit()
-        print(f"Veículo adicionado: {veiculo.modelo} \nVaga: {vagas.localizacao}")
 
     # testado e funcionando
     def encerrarVeiculo(self, veiculo: Veiculo):

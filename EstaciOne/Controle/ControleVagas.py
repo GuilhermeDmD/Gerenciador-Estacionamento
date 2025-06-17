@@ -5,8 +5,8 @@ class ControleVaga:
         self.conexao = ConexaoBD()
 
     #FUNCIONANDO TESTADO
-    def buscarIdVaga(self, vagas: Vagas):
-        comando = f'select id_vaga from tb_vagas where localizacao = "{vagas.localizacao}"'
+    def buscarIdVaga(self, localizacao):
+        comando = f'select id_vaga from tb_vagas where localizacao = "{localizacao}"'
         self.conexao.cursor.execute(comando)
         idVaga = self.conexao.cursor.fetchone()
         return idVaga[0]
@@ -40,6 +40,14 @@ class ControleVaga:
         comandoSql = f'update tb_vagas set tipo = "{novoTipo}" where id_vaga = {idVaga}'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
+
+    def ocuparVaga(self, localizacao):
+        idVaga = self.buscarIdVaga(localizacao)
+        comandoSql = f'update tb_vagas set disponibilidade = "Ocupado" where id_vaga = {idVaga}'
+        self.conexao.cursor.execute(comandoSql)
+        self.conexao.conexao.commit()
+
+    
 
 
         

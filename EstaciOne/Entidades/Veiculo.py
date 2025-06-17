@@ -1,8 +1,7 @@
 from datetime import date, datetime
 class Veiculo:
     
-    def __init__(self, idVeiculo, placa, modelo, cor):
-        self.idVeiculo = idVeiculo
+    def __init__(self, placa, modelo, cor):
         self.placa = placa
         self.modelo = modelo
         self.cor = cor

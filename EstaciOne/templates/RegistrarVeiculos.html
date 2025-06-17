@@ -35,39 +35,29 @@
     </nav>
     <main>
         <div class="pesquisa">
-            <form action="#" method="get">
+            <form action="/send" method="post">
                 <input type="text" name="" placeholder="Pesquisar...">
                 <button type="">🔍</button>
-            </form>
+            
         </div>
         <div class="conteudo-principal">
             <div class="detales">
                 <div class="modelo">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Modelo...">
-
-                    </form>
+                        <input type="text" name="modeloCarro" placeholder="Modelo...">
                 </div>
                 <div class="cor">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Cor...">
-
-                    </form>
+                        <input type="text" name="corCarro" placeholder="Cor...">
                 </div>
                 <div class="placa">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Placa...">
-
-                    </form>
+                        <input type="text" name="placaCarro" placeholder="Placa...">
                 </div>
                 <div class="buscar">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Vagas...">
+                        <input type="text" name="vagaCarro" placeholder="Vaga...">
                         <button type="">🔍</button>
-                    </form>
                 </div>
             </div>
-            <div class="dete">
+
+            <!-- <div class="dete">
                 <div class="data">
                     <form action="#" method="get">
                         <input type="text" name="" placeholder="Data...">
@@ -80,16 +70,17 @@
 
                     </form>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="botao">
-            <button class="registro">
+            <button type="submit" class="registro">
                 <p>Registrar</p>
             </button>
-            <button class="limpa">
+            <button type="reset" class="limpa">
                 <p>Limpar</p>
             </button>
-            <button class="finaliza">
+            </form>
+            <button type="submit" class="finaliza">
                 <p>Finalizar</p>
             </button>
         </div>

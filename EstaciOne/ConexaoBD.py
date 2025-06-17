@@ -6,7 +6,7 @@ class ConexaoBD:
             host = 'localhost',
             user = 'root',
             #adicione aqui a sua senha para acessar o Workbeach
-            password = "Sua senha aqui",
+            password = "",
             database = 'bd_estacionamento'
         )
         self.cursor = self.conexao.cursor()
