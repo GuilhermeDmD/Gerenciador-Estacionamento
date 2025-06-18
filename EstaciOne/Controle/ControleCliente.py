@@ -29,7 +29,7 @@ class ControleCliente:
             listaClientes.append(clienteDict)
         print(listaClientes)
 
-    #TESTADO FUNCIONANDO
+    #alterar
     def addCliente(self, cliente:Cliente, vagas:Vagas, planos:Planos):
         idVaga = self.vaga.buscarIdVaga(vagas)
         idPlano = self.plano.buscarPlanoID(planos)

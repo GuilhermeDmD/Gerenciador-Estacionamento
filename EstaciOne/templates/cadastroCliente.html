@@ -43,67 +43,61 @@
         <div class="conteudo-principal">
             <div class="detales">
                 <div class="nome">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Nome...">
-
-                    </form>
+                    <form action="/sendCliente" method="post">
+                        <input type="text" name="nomeCliente" placeholder="Nome...">
+                
                 </div>
                 <div class="cpf">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="CPF...">
-
-                    </form>
+                        <input type="text" name="cpfCliente" placeholder="CPF...">
                 </div>
                 <div class="fone">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Fone...">
+                        <input type="text" name="foneCliente" placeholder="Fone...">
 
-                    </form>
                 </div>
                 <div class="email">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="E-mail...">
+                        <input type="text" name="emailCliente" placeholder="E-mail...">
 
-                    </form>
                 </div>
                 <div class="buscar">
-                    <form action="#" method="get">
-                        <input type="text" name="" placeholder="Tipo Plano...">
+                        <input type="text" name="planoCliente" placeholder="Tipo Plano...">
                         <button type="">🔍</button>
-                    </form>
                 </div>
-            </div>
+                <!-- alterar depois -->
+                <div class="email">
+                    <select name="vaga" id="vaga">
+                        {%for vaga in vagas%}
+                            <option value="{{vaga}}">{{vaga}}</option>
+                        {%endfor %}
+
+                    </select>
+                    <input type="text" name="vagaCliente" placeholder="Vaga...">
+                </div>
 
 
         </div>
         <div class="Modelo">
             <div class="modelo">
-                <form action="#" method="get">
-                    <input type="text" name="" placeholder="Modelo...">
+                    <input type="text" name="modeloCliente" placeholder="Modelo...">
 
-                </form>
             </div>
             <div class="cor">
-                <form action="#" method="get">
-                    <input type="text" name="" placeholder="Cor...">
+                    <input type="text" name="corCliente" placeholder="Cor...">
 
-                </form>
             </div>
             <div class="placa">
-                <form action="#" method="get">
-                    <input type="text" name="" placeholder="Placa...">
+                    <input type="text" name="placaCliente" placeholder="Placa...">
 
-                </form>
             </div>
         </div>
         </div>
         <div class="botao">
-            <button class="registro">
+            <button type="submit" class="registro">
                 <p>Registrar</p>
             </button>
-            <button class="limpa">
+            <button type="reset" class="limpa">
                 <p>Limpar</p>
             </button>
+        </form>
             <button class="finaliza">
                 <p>Finalizar</p>
             </button>

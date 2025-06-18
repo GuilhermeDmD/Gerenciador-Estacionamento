@@ -34,6 +34,12 @@ class ControleVaga:
             vagasDados.append(vagasDict)
         print(vagasDados)
 
+    def mostrarVagasMensais(self):
+        comandosql = 'select localizacao from tb_vagas where tipo = "Mensal" and disponibilidade = "Disponível"'
+        self.conexao.cursor.execute(comandosql)
+        resultadoPesquisa = self.conexao.cursor.fetchall()
+        return[vagaItem[0] for vagaItem in resultadoPesquisa]
+
     #TESTADO E FUNCIONANDO
     def alterarTipoVaga(self, Vagas: Vagas, novoTipo):
         idVaga = self.buscarIdVaga(Vagas)

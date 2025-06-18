@@ -42,4 +42,4 @@ controleVeiculo = ControleVeiculo()
 controleVaga = ControleVaga()
 controlePgt = ControlePagamento()
 
-controlePgt.pagamentoMensal(c1)
+controleVaga.mostrarVagasMensais()

@@ -2,8 +2,12 @@ from flask import Flask, render_template, request, redirect
 from Entidades.Veiculo import Veiculo
 from Controle.ControleEstac import ControleEstac
 from Controle.ControleVagas import ControleVaga
+from Controle.ControleVagas import ControleVaga
 
 app = Flask(__name__)
+controleVaga = ControleVaga()
+controleEstac = ControleEstac()
+controleVaga = ControleVaga()
 
 @app.route("/")
 def paginaInicial():
@@ -13,15 +17,14 @@ def paginaInicial():
 def paginaRegistrarVeiculos():
     return render_template("RegistrarVeiculos.html")
 
-@app.route("/send", methods=['POST'])
+@app.route("/sendVeiculo", methods=['POST'])
 def paginaRegistrar():
     modelo = request.form.get('modeloCarro')
     cor = request.form.get('corCarro')
     placa = request.form.get('placaCarro')
     vaga = request.form.get('vagaCarro')
     veiculo = Veiculo(placa, modelo, cor)
-    controleEstac = ControleEstac()
-    controleVaga = ControleVaga()
+   
     controleEstac.addVeiculoAvulso(veiculo)
     controleVaga.ocuparVaga(vaga)
     #precisa add no histórico tbm
@@ -45,7 +48,26 @@ def paginaAnotacoes():
 
 @app.route("/cadastrarcliente")
 def paginaCadastrarCliente():
-    return render_template("cadastroCliente.html")
+    
+    vagas = controleVaga.mostrarVagasMensais()
+    return render_template("cadastroCliente.html", vagas=vagas)
+
+@app.route("/sendCliente", methods=["POST"])
+def cadastrarCliente():
+    nome = request.form.get('nomeCliente')
+    cpf = request.form.get('cpfCliente')
+    telefone = request.form.get('foneCliente')
+    email = request.form.get('emailCliente')
+    plano = request.form.get('planoCliente')
+    vaga = request.form.get('vaga')
+
+    modelo = request.form.get('modeloCliente')
+    cor = request.form.get('corCliente')
+    placa = request.form.get('placaCliente')
+
+    print(nome, cpf, telefone, email, plano, vaga)
+    print(modelo, cor, placa)
+    return redirect("/cadastrarcliente")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
