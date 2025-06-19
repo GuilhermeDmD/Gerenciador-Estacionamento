@@ -5,8 +5,8 @@ class ControlePlanos:
         self.conexao = ConexaoBD()
 
     #FUNCIONANDO TESTADO
-    def buscarPlanoID(self, planos: Planos):
-        comandoSql = f'SELECT id_plano from tb_planos where nome_plano = "{planos.nomePlano}"'
+    def buscarPlanoID(self, plano):
+        comandoSql = f'SELECT id_plano from tb_planos where nome_plano = "{plano}"'
         self.conexao.cursor.execute(comandoSql)
         idPlano = self.conexao.cursor.fetchone()
         return idPlano[0]
@@ -21,14 +21,11 @@ class ControlePlanos:
     
     # TESTADO E FUNCIONANDO
     def mostrarPlanos(self):
-        comandoSql = f'SELECT * FROM tb_planos'
-        planos = []
+        comandoSql = f'SELECT tb_planos.nome_plano FROM tb_planos inner join tb_vagas on tb_planos.id_plano = tb_vagas.id_plano_fk where tb_vagas.disponibilidade = "Disponivel";'
         self.conexao.cursor.execute(comandoSql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
-        for plano in resultadoPesquisa:
-            dictPlanos = {"id":plano[0], "nomePlano": plano[1], "descricao":plano[2], "valor":plano[3]}
-            planos.append(dictPlanos)
-        print(planos)
+        return [planos[0] for planos in resultadoPesquisa]
+       
 
     #TESTADO E FUNCIONANDO
     def addPlano(self, planos: Planos):

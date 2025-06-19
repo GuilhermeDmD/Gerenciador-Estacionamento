@@ -1,13 +1,19 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, jsonify, render_template, request, redirect
 from Entidades.Veiculo import Veiculo
+from Entidades.Cliente import Cliente
 from Controle.ControleEstac import ControleEstac
 from Controle.ControleVagas import ControleVaga
-from Controle.ControleVagas import ControleVaga
+from Controle.ControleCliente import ControleCliente
+from Controle.ControleVeiculo import ControleVeiculo
+from Controle.ControlePlanos import ControlePlanos
 
 app = Flask(__name__)
 controleVaga = ControleVaga()
 controleEstac = ControleEstac()
 controleVaga = ControleVaga()
+controleCliente = ControleCliente()
+controleVeiculo = ControleVeiculo()
+controlePlanos = ControlePlanos()
 
 @app.route("/")
 def paginaInicial():
@@ -15,7 +21,8 @@ def paginaInicial():
 
 @app.route("/registarveiculo")
 def paginaRegistrarVeiculos():
-    return render_template("RegistrarVeiculos.html")
+    vagas = controleVaga.mostrarVagasAvulsas()
+    return render_template("RegistrarVeiculos.html", vagas = vagas)
 
 @app.route("/sendVeiculo", methods=['POST'])
 def paginaRegistrar():
@@ -30,7 +37,17 @@ def paginaRegistrar():
     #precisa add no histórico tbm
     return redirect("/registarveiculo")
 
-# uma do finalizar, outra do buscar
+@app.route("/buscarveiculo")
+def buscarVeiculo():
+    placa = request.args.get("placa")
+    dados = controleEstac.buscarVeiculoAvulso(placa)
+    if dados:
+        return jsonify({**dados, "encontrado": True})
+    else:
+        return jsonify({"encontrado": False})
+    
+
+# uma do finalizar
     
 #tá pronto já
 @app.route("/feedback")
@@ -48,11 +65,11 @@ def paginaAnotacoes():
 
 @app.route("/cadastrarcliente")
 def paginaCadastrarCliente():
-    
+    planos = controlePlanos.mostrarPlanos()
     vagas = controleVaga.mostrarVagasMensais()
-    return render_template("cadastroCliente.html", vagas=vagas)
+    return render_template("cadastroCliente.html", vagas=vagas, planos=planos)
 
-@app.route("/sendCliente", methods=["POST"])
+@app.route("/sendCliente", methods = ["POST"])
 def cadastrarCliente():
     nome = request.form.get('nomeCliente')
     cpf = request.form.get('cpfCliente')
@@ -65,9 +82,27 @@ def cadastrarCliente():
     cor = request.form.get('corCliente')
     placa = request.form.get('placaCliente')
 
-    print(nome, cpf, telefone, email, plano, vaga)
-    print(modelo, cor, placa)
+    novoCliente = Cliente(cpf, nome, telefone, email)
+    novoVeiculo = Veiculo(placa, modelo, cor)
+
+    controleCliente.addCliente(novoCliente, vaga, plano)
+    controleVeiculo.addVeiculo(novoVeiculo, cpf)
+    controleVaga.ocuparVaga(vaga)
+    
+    
     return redirect("/cadastrarcliente")
+
+
+
+
+@app.route("/buscarcliente")
+def buscarCliente():
+    cpf = request.args.get("cpf")
+    dados = controleCliente.buscarCliente(cpf)
+    if dados:
+        return jsonify({**dados, "encontrado": True})
+    else:
+        return jsonify({"encontrado": False})
 
 if __name__ == "__main__":
     app.run(debug=True)

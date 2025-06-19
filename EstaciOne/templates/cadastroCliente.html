@@ -34,33 +34,35 @@
         </div>
     </nav>
     <main>
-        <div class="pesquisa">
-            <form action="#" method="get">
-                <input type="text" name="" placeholder="Buscar CPF...">
-                <button type="">🔍</button>
-            </form>
-        </div>
+        <form action="/sendCliente" method="post"></form>
+            <div class="pesquisa">
+                    <input type="text" name="" id="pesquisaCliente" placeholder="Buscar CPF...">
+                    <button type="button" onclick="buscarCliente()">🔍</button>
+            </div>
         <div class="conteudo-principal">
             <div class="detales">
                 <div class="nome">
-                    <form action="/sendCliente" method="post">
-                        <input type="text" name="nomeCliente" placeholder="Nome...">
-                
+                        <input type="text" name="nomeCliente" id="nomeCliente" placeholder="Nome...">
                 </div>
                 <div class="cpf">
-                        <input type="text" name="cpfCliente" placeholder="CPF...">
+                        <input type="text" name="cpfCliente" id="cpfCliente" placeholder="CPF...">
                 </div>
                 <div class="fone">
-                        <input type="text" name="foneCliente" placeholder="Fone...">
-
+                        <input type="text" name="foneCliente" id="foneCliente" placeholder="Fone...">
                 </div>
                 <div class="email">
-                        <input type="text" name="emailCliente" placeholder="E-mail...">
-
+                        <input type="text" name="emailCliente" id="emailCliente" placeholder="E-mail...">
                 </div>
+                <!-- alterações na div pra depois -->
                 <div class="buscar">
-                        <input type="text" name="planoCliente" placeholder="Tipo Plano...">
-                        <button type="">🔍</button>
+                    <select name="plano" id="plano">
+                        {%for plano in planos%}
+                            <option value="{{plano}}">{{plano}}</option>
+                        {%endfor %}
+
+                    </select>
+                        <!-- <input type="text" name="planoCliente" placeholder="Tipo Plano...">
+                        <button type="">🔍</button> -->
                 </div>
                 <!-- alterar depois -->
                 <div class="email">
@@ -70,7 +72,7 @@
                         {%endfor %}
 
                     </select>
-                    <input type="text" name="vagaCliente" placeholder="Vaga...">
+                    <!-- <input type="text" name="vagaCliente" placeholder="Vaga..."> -->
                 </div>
 
 
@@ -106,6 +108,7 @@
     <footer>
 
     </footer>
+    <script src="../static/js/cadastroCliente.js"></script>
 </body>
 
 </html>

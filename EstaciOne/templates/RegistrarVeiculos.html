@@ -34,26 +34,31 @@
         </div>
     </nav>
     <main>
-        <div class="pesquisa">
-            <form action="/sendVeiculo" method="post">
-                <input type="text" name="" placeholder="Pesquisar...">
-                <button type="">🔍</button>
-            
-        </div>
+        <form action="/sendVeiculo" method="post">
+            <div class="pesquisa">
+                <input type="text" name="" id="pesquisaPlaca" placeholder="Pesquisar placa...">
+                <button type="button" onClick = "buscarVeiculo()">🔍</button>            
+            </div>
+    
         <div class="conteudo-principal">
             <div class="detales">
                 <div class="modelo">
-                        <input type="text" name="modeloCarro" placeholder="Modelo...">
+                        <input type="text" name="modeloCarro" id="modeloCarro" placeholder="Modelo...">
                 </div>
                 <div class="cor">
-                        <input type="text" name="corCarro" placeholder="Cor...">
+                        <input type="text" name="corCarro" id="corCarro" placeholder="Cor...">
                 </div>
                 <div class="placa">
-                        <input type="text" name="placaCarro" placeholder="Placa...">
+                        <input type="text" name="placaCarro" id="placaCarro" placeholder="Placa...">
                 </div>
                 <div class="buscar">
-                        <input type="text" name="vagaCarro" placeholder="Vaga...">
-                        <button type="">🔍</button>
+                    <select name="vaga" id="vaga">
+                        {%for vaga in vagas%}
+                        <option value="{{vaga}}" id="vaga">{{vaga}}</option>
+                        {%endfor%}
+                    </select>
+                        <!-- <input type="text" name="vagaCarro"  id="vagaCarro" placeholder="Vaga...">
+                        <button type="">🔍</button> -->
                 </div>
             </div>
 
@@ -89,6 +94,7 @@
     <footer>
 
     </footer>
+    <script src="../static/js/registrarVeiculo.js"></script>
 </body>
 
 </html>
