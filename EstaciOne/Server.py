@@ -19,6 +19,12 @@ controlePlanos = ControlePlanos()
 def paginaInicial():
     return render_template("index.html")
 
+@app.route("/verificarvagas")
+def verificarVagas():
+    dados = controleVaga.mostrarVagasOcupadas()
+    print(dados)
+    return jsonify(dados)
+
 @app.route("/registarveiculo")
 def paginaRegistrarVeiculos():
     vagas = controleVaga.mostrarVagasAvulsas()
@@ -29,8 +35,9 @@ def paginaRegistrar():
     modelo = request.form.get('modeloCarro')
     cor = request.form.get('corCarro')
     placa = request.form.get('placaCarro')
-    vaga = request.form.get('vagaCarro')
+    vaga = request.form.get('vaga')
     veiculo = Veiculo(placa, modelo, cor)
+    
    
     controleEstac.addVeiculoAvulso(veiculo)
     controleVaga.ocuparVaga(vaga)
@@ -41,6 +48,7 @@ def paginaRegistrar():
 def buscarVeiculo():
     placa = request.args.get("placa")
     dados = controleEstac.buscarVeiculoAvulso(placa)
+    print(dados)
     if dados:
         return jsonify({**dados, "encontrado": True})
     else:
@@ -75,7 +83,7 @@ def cadastrarCliente():
     cpf = request.form.get('cpfCliente')
     telefone = request.form.get('foneCliente')
     email = request.form.get('emailCliente')
-    plano = request.form.get('planoCliente')
+    plano = request.form.get('plano')
     vaga = request.form.get('vaga')
 
     modelo = request.form.get('modeloCliente')
@@ -84,6 +92,7 @@ def cadastrarCliente():
 
     novoCliente = Cliente(cpf, nome, telefone, email)
     novoVeiculo = Veiculo(placa, modelo, cor)
+    print("dados", plano, vaga)
 
     controleCliente.addCliente(novoCliente, vaga, plano)
     controleVeiculo.addVeiculo(novoVeiculo, cpf)

@@ -16,6 +16,7 @@ class ControleHist:
         comandoSql = f'select id_historico from tb_historico where id_veiculo_fk = {idVeiculo}'
         self.conexao.cursor.execute(comandoSql)
         idHistorico = self.conexao.cursor.fetchone()
+          # self.conexao.fecharConexao()
         return idHistorico[0]
 
     #TESTADO E FUNCIONANDO
@@ -28,5 +29,6 @@ class ControleHist:
         comandoSql = f'update tb_historico set hora_saida = "{horaFormatada}", data_saida = "{dataFormatada}" where id_historico = {idHistorico}'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
+          # self.conexao.fecharConexao()
 
     

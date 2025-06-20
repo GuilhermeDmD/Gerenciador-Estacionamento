@@ -9,7 +9,9 @@ class ControleVaga:
         comando = f'select id_vaga from tb_vagas where localizacao = "{localizacao}"'
         self.conexao.cursor.execute(comando)
         idVaga = self.conexao.cursor.fetchone()
-        return idVaga[0]
+        # self.conexao.fecharConexao()
+        # print(f"vaga {idVaga[0]}" )
+        return idVaga[0] if idVaga else None 
     
     #TESTADO E FUNCIONANDO
     # def buscarVaga(self, vagas: Vagas):
@@ -38,12 +40,14 @@ class ControleVaga:
         comandosql = 'select localizacao, disponibilidade from tb_vagas where tipo = "Avulso" and disponibilidade = "Disponivel"'
         self.conexao.cursor.execute(comandosql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
+        # self.conexao.fecharConexao()
         return [vagas[0] for vagas in resultadoPesquisa]
 
     def mostrarVagasMensais(self):
         comandosql = 'select localizacao from tb_vagas where tipo = "Mensal" and disponibilidade = "Disponível"'
         self.conexao.cursor.execute(comandosql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
+        # self.conexao.fecharConexao()
         return[vagaItem[0] for vagaItem in resultadoPesquisa]
 
     # #TESTADO E FUNCIONANDO
@@ -54,10 +58,23 @@ class ControleVaga:
     #     self.conexao.conexao.commit()
 
     def ocuparVaga(self, localizacao):
+        print(f"localizao paddasdajsd: {localizacao}")
         idVaga = self.buscarIdVaga(localizacao)
         comandoSql = f'update tb_vagas set disponibilidade = "Ocupado" where id_vaga = {idVaga}'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
+         # self.conexao.fecharConexao()
+
+    def mostrarVagasOcupadas(self):
+        comandosql = f'select v.localizacao from tb_vagas v inner join tb_historico h on v.id_vaga = h.id_vaga_fk where v.disponibilidade = "Ocupado"'
+        self.conexao.cursor.execute(comandosql)
+        resultado = self.conexao.cursor.fetchall()
+         # self.conexao.fecharConexao()
+        vagas = []
+        for vaga in resultado:
+            vagasDict = {"localizacao":vaga[0]}
+            vagas.append(vagasDict)
+        return vagas
 
     
 

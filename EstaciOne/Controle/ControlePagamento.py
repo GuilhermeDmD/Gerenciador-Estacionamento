@@ -16,6 +16,7 @@ class ControlePagamento:
         comandoSql = f'select valor_total, id_veiculo_fk from tb_pagamento where id_veiculo_fk = {idVeiculo}'
         self.conexao.cursor.execute(comandoSql)
         infomacoesPag = self.conexao.cursor.fetchone()
+          # self.conexao.fecharConexao()
         print(infomacoesPag)
 
     #testado e funcionando
@@ -24,4 +25,5 @@ class ControlePagamento:
         comandoSql = f'select valor_total, id_cliente_fk from tb_pagamento where id_cliente_fk = {idCliente}'
         self.conexao.cursor.execute(comandoSql)
         informacoesPag = self.conexao.cursor.fetchone()
+         # self.conexao.fecharConexao()
         print(informacoesPag)

@@ -55,6 +55,7 @@ class ControleCliente:
         comandoSql = f'insert into tb_clientes(nome_cliente, cpf_cliente, telefone_cliente, email_cliente, id_plano_fk, id_vaga_fk) values ("{cliente.nome}", "{cliente.cpf}", "{cliente.telefone}", "{cliente.email}", {idPlano}, {idVaga})'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
+         # self.conexao.fecharConexao()
 
 
     #metodologia para deletar cliente

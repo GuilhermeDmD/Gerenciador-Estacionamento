@@ -8,7 +8,7 @@ class ControleCategoia:
     def buscarIdCategoria(self, descricaoPesq):
         comandoSql = f'select id_categoria from tb_categoria where descricao like "{descricaoPesq}%" limit 1'
         self.conexao.cursor.execute(comandoSql)
-        idCategoria = self.conexao.cursor.fetchone()
+        idCategoria = self.conexao.cursor.fetchone
         return idCategoria
     
     def reajustarValor(self, descricaoCat, novoValor):
