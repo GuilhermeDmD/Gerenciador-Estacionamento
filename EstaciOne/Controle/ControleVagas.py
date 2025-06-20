@@ -2,15 +2,14 @@ from ConexaoBD import ConexaoBD
 from Entidades.Vagas import Vagas
 class ControleVaga:
     def __init__(self):
-        self.conexao = ConexaoBD()
+        pass
 
     #FUNCIONANDO TESTADO
     def buscarIdVaga(self, localizacao):
+        self.conexao = ConexaoBD()
         comando = f'select id_vaga from tb_vagas where localizacao = "{localizacao}"'
         self.conexao.cursor.execute(comando)
         idVaga = self.conexao.cursor.fetchone()
-        # self.conexao.fecharConexao()
-        # print(f"vaga {idVaga[0]}" )
         return idVaga[0] if idVaga else None 
     
     #TESTADO E FUNCIONANDO
@@ -37,17 +36,19 @@ class ControleVaga:
     #     print(vagasDados)
 
     def mostrarVagasAvulsas(self):
+        self.conexao = ConexaoBD()
         comandosql = 'select localizacao, disponibilidade from tb_vagas where tipo = "Avulso" and disponibilidade = "Disponivel"'
         self.conexao.cursor.execute(comandosql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
-        # self.conexao.fecharConexao()
+        self.conexao.fecharConexao()
         return [vagas[0] for vagas in resultadoPesquisa]
 
     def mostrarVagasMensais(self):
+        self.conexao = ConexaoBD()
         comandosql = 'select localizacao from tb_vagas where tipo = "Mensal" and disponibilidade = "Disponível"'
         self.conexao.cursor.execute(comandosql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
-        # self.conexao.fecharConexao()
+        self.conexao.fecharConexao()
         return[vagaItem[0] for vagaItem in resultadoPesquisa]
 
     # #TESTADO E FUNCIONANDO
@@ -58,18 +59,20 @@ class ControleVaga:
     #     self.conexao.conexao.commit()
 
     def ocuparVaga(self, localizacao):
+        self.conexao = ConexaoBD()
         print(f"localizao paddasdajsd: {localizacao}")
         idVaga = self.buscarIdVaga(localizacao)
         comandoSql = f'update tb_vagas set disponibilidade = "Ocupado" where id_vaga = {idVaga}'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
-         # self.conexao.fecharConexao()
+        self.conexao.fecharConexao()
 
     def mostrarVagasOcupadas(self):
+        self.conexao = ConexaoBD()
         comandosql = f'select v.localizacao from tb_vagas v inner join tb_historico h on v.id_vaga = h.id_vaga_fk where v.disponibilidade = "Ocupado"'
         self.conexao.cursor.execute(comandosql)
         resultado = self.conexao.cursor.fetchall()
-         # self.conexao.fecharConexao()
+        self.conexao.fecharConexao()
         vagas = []
         for vaga in resultado:
             vagasDict = {"localizacao":vaga[0]}

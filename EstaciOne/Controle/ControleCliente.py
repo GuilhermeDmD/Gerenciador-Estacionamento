@@ -7,12 +7,12 @@ from ConexaoBD import ConexaoBD
 
 class ControleCliente:
     def __init__(self):
-        self.conexao = ConexaoBD()
         self.plano = ControlePlanos()
         self.vaga = ControleVaga() 
       
     # TESTADO E FUNCIONANDO    
     def buscaIdCliente(self, cpf):
+        self.conexao = ConexaoBD()
         busca = f'select id_cliente from tb_clientes where cpf_cliente = "{cpf}"'
         self.conexao.cursor.execute(busca)
         idCliente = self.conexao.cursor.fetchone()
@@ -30,9 +30,11 @@ class ControleCliente:
     #     print(listaClientes)
 
     def buscarCliente(self, cpf):
+        self.conexao = ConexaoBD()
         comandosql = f'select c.nome_cliente, c.cpf_cliente, c.telefone_cliente, c.email_cliente, p.nome_plano, v.localizacao from tb_clientes c inner join tb_planos p on c.id_plano_fk = p.id_plano inner join tb_vagas v on p.id_plano = v.id_plano_fk where c.cpf_cliente = "{cpf}" limit 1'
         self.conexao.cursor.execute(comandosql)
         resultado = self.conexao.cursor.fetchone()
+        self.conexao.fecharConexao()
         if resultado:
             return {
                 "nome":resultado[0],
@@ -48,14 +50,13 @@ class ControleCliente:
 
     #alterar
     def addCliente(self, cliente:Cliente, vaga, plano):
+        self.conexao = ConexaoBD()
         idVaga = self.vaga.buscarIdVaga(vaga)
         idPlano = self.plano.buscarPlanoID(plano)
-        print(idVaga)
-        print(idPlano)
         comandoSql = f'insert into tb_clientes(nome_cliente, cpf_cliente, telefone_cliente, email_cliente, id_plano_fk, id_vaga_fk) values ("{cliente.nome}", "{cliente.cpf}", "{cliente.telefone}", "{cliente.email}", {idPlano}, {idVaga})'
         self.conexao.cursor.execute(comandoSql)
         self.conexao.conexao.commit()
-         # self.conexao.fecharConexao()
+        self.conexao.fecharConexao()
 
 
     #metodologia para deletar cliente
