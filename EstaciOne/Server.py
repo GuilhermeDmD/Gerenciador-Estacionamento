@@ -22,7 +22,6 @@ def paginaInicial():
 @app.route("/verificarvagas")
 def verificarVagas():
     dados = controleVaga.mostrarVagasOcupadas()
-    print(dados)
     return jsonify(dados)
 
 @app.route("/registarveiculo")
@@ -48,7 +47,6 @@ def paginaRegistrar():
 def buscarVeiculo():
     placa = request.args.get("placa")
     dados = controleEstac.buscarVeiculoAvulso(placa)
-    print(dados)
     if dados:
         return jsonify({**dados, "encontrado": True})
     else:
@@ -92,7 +90,6 @@ def cadastrarCliente():
 
     novoCliente = Cliente(cpf, nome, telefone, email)
     novoVeiculo = Veiculo(placa, modelo, cor)
-    print("dados", plano, vaga)
 
     controleCliente.addCliente(novoCliente, vaga, plano)
     controleVeiculo.addVeiculo(novoVeiculo, cpf)
