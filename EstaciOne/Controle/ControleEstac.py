@@ -31,7 +31,23 @@ class ControleEstac:
         }
         else:
             return None
-
+    
+    # para o menu_contexto
+    def buscarVeiculoAvulsoPorVaga(self, vaga):
+        self.conexao = ConexaoBD()
+        comandosql = 'select v.modelo_veiculo, v.cor_veiculo, v.placa_veiculo, vg.localizacao from tb_veiculos v inner join tb_historico h on v.id_veiculo = h.id_veiculo_fk inner join tb_vagas vg on h.id_vaga_fk = vg.id_vaga where vg.tipo = "Avulso" and vg.localizacao = %s ORDER BY h.id_historico DESC LIMIT 1'
+        self.conexao.cursor.execute(comandosql, (vaga, ))
+        resultado = self.conexao.cursor.fetchone()
+        self.conexao.fecharConexao()
+        if resultado:
+            return{
+                "modelo":resultado[0],
+                "cor":resultado[1],
+                "placa":resultado[2],
+                "vaga":resultado[3]
+        }
+        else:
+            return None
 
 
     # testado e funcionando
@@ -51,4 +67,4 @@ class ControleEstac:
         self.conexao.cursor.execute(inserirVeiculoMensal)
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
-        print("Veículo mensal cadastrado")
+
