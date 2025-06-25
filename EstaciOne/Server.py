@@ -78,6 +78,10 @@ def paginaFeedback():
 def paginaHistorico():
     return render_template("Historico.html")
 
+@app.route("/financeiro")
+def paginaFinanceiro():
+    return render_template("financeiro.html")
+
 @app.route("/buscarhistorico")
 def buscarHistorico():
     placa = request.args.get("placa")
