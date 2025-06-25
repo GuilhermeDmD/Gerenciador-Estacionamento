@@ -1,6 +1,10 @@
-from Controle.ControleHist import ControleHist
-from Entidades.Veiculo import Veiculo
+from Controle import ControleEstac
+from Controle.ControleCliente import ControleCliente
+from Controle import ControleCategoria
+from Controle.ControleVagas import ControleVaga
 
-veiculo = Veiculo("123gh45", "Sandero", "Preto")
-controleHist = ControleHist()
-controleHist.addHistorico(veiculo, "AC3")
+
+controleCliente = ControleCliente()
+controleCliente.buscarCliente("222.222.222-12")
+controleVaga = ControleVaga()
+controleVaga.buscarIdVaga("AC1")

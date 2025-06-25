@@ -205,15 +205,16 @@ main {
 
 .Modelo {
     width: 90%;
-    max-width: 1000px;
+    max-width: 1500px;
     height: 250px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .modelo,
 .cor,
 .placa {
+    margin-top: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -294,6 +295,14 @@ main {
     flex-wrap: wrap; 
     padding: 50px;
 }
+
+.botaoMensal { 
+    display: flex;
+    justify-content: center;
+    gap: 50px; 
+    flex-wrap: wrap;
+
+}
 .registro {
     background-color: #10AA4F;
     padding: 15px 60px;
@@ -308,9 +317,25 @@ main {
     border-radius: 50px;
 }
 
+
+
 .finaliza {
     background-color: #FF5757;
     padding: 15px 60px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+.registroMensal {
+    background-color: whitesmoke ;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+.saidaMensal {
+    background-color: whitesmoke;
+    padding: 10px 20px;
     font-size: 20px;
     border-radius: 50px;
 }
