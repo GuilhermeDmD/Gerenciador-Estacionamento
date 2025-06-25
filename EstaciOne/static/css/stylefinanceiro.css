@@ -35,7 +35,6 @@ header {
     text-align: center;
 }
 
-
 nav {
     width: 400px;
     font-size: 20px;
@@ -126,65 +125,28 @@ main {
     background-color: #FFBD59;
 }
 
-.git{ 
-    margin: 5px;
-    margin-bottom: 100px;
-    display: flex;
-    justify-content: center;
-}
-
-.retangulo {
-    width: 700px;
-    height: 100px;
-    margin-top: 100px;
-    margin: auto;
-    background-color: black;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px; /* Aumentei o raio da borda */
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-    font-size: 20px;
-    font-weight: bold;
-    padding: 20px;
-}
-
-.retangulo>p{ 
-    text-align: justify;
-
-}
-
 .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+  }
+  .card {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px; /* Largura máxima do bloco de notas */
-    text-align: center;
-} 
-
-#notepad {
-    width: calc(100% - 20px); /* Ocupa quase 100% da largura, descontando o padding */
-    height: 200px; /* Altura do bloco de notas */
-    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    line-height: 1.5;
-    resize: vertical; /* Permite ao usuário redimensionar verticalmente */
-    box-sizing: border-box; /* Garante que padding não aumente a largura */
-}
-
-#notepad:focus {
-    outline: none;
-    border-color: #007bff; /* Borda azul ao focar */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.info {
-    font-size: 14px;
-    color: #666;
-    margin-top: 15px;
-}
+    border-radius: 8px;
+    width: 400px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
