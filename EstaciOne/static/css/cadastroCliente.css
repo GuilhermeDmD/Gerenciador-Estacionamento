@@ -208,12 +208,13 @@ main {
     max-width: 1500px;
     height: 250px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .modelo,
 .cor,
 .placa {
+    margin-top: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -316,12 +317,7 @@ main {
     border-radius: 50px;
 }
 
-.registroMensal {
-    background-color: ;
-    padding: 15px 60px;
-    font-size: 20px;
-    border-radius: 50px;
-}
+
 
 .finaliza {
     background-color: #FF5757;
@@ -330,9 +326,16 @@ main {
     border-radius: 50px;
 }
 
+.registroMensal {
+    background-color: whitesmoke ;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
 .saidaMensal {
-    background-color: blue;
-    padding: 15px 60px;
+    background-color: whitesmoke;
+    padding: 10px 20px;
     font-size: 20px;
     border-radius: 50px;
 }
