@@ -15,26 +15,24 @@ class ControleHist:
     def buscaIdHistorico(self, veiculo: Veiculo):
         self.conexao = ConexaoBD()
         idVeiculo = self.controleVeiculo.buscarIdVeiculo(veiculo)
-        comandoSql = f'select id_historico from tb_historico where id_veiculo_fk = {idVeiculo} order by id_historico desc limit 1'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'select id_historico from tb_historico where id_veiculo_fk = %s order by id_historico desc limit 1'
+        self.conexao.cursor.execute(comandoSql, (idVeiculo, ))
         idHistorico = self.conexao.cursor.fetchone()
         return idHistorico[0]
 
-    # #TESTADO E FUNCIONANDO provavelmente essa não vai usar
-    # def addInfoSaida(self, veiculo:Veiculo):
-    #     self.conexao = ConexaoBD()
-    #     idHistorico = self.buscaIdHistorico(veiculo)
-    #     horaFormatada = self.horaAtual.strftime("%H:%M:%S")
-    #     dataFormatada = self.dataAtual.strftime("%Y-%m-%d")
-    #     print(horaFormatada)
-    #     print(self.dataAtual)
-    #     comandoSql = f'update tb_historico set hora_saida = "{horaFormatada}", data_saida = "{dataFormatada}" where id_historico = {idHistorico}'
-    #     self.conexao.cursor.execute(comandoSql)
-    #     self.conexao.conexao.commit()
-    #     self.conexao.fecharConexao()
+    #TESTADO E FUNCIONANDO provavelmente essa não vai usar
+    def addInfoSaida(self, veiculo:Veiculo):
+        self.conexao = ConexaoBD()
+        idHistorico = self.buscaIdHistorico(veiculo)
+        dataHoraAtual = self.dataHoraAtual.strftime('%Y-%m-%d %H:%M:%S')
+        comandoSql = 'update tb_historico set Saida = %s where id_historico = %s'
+        self.conexao.cursor.execute(comandoSql, (dataHoraAtual, idHistorico))
+        self.conexao.conexao.commit()
+        self.conexao.fecharConexao()
 
     def addHistorico(self, veiculo: Veiculo, vaga):
         self.conexao = ConexaoBD()
+        print("dados: ", veiculo.modelo, veiculo.placa, veiculo.cor, vaga)
         dataHoraAtual = self.dataHoraAtual.strftime('%Y-%m-%d %H:%M:%S')
         idVeiculo = self.controleVeiculo.buscarIdVeiculo(veiculo)
         idVaga = self.controleVaga.buscarIdVaga(vaga)
@@ -54,7 +52,6 @@ class ControleHist:
             }
         else:
             return "Dados não encontrados"
-
 
     
 

@@ -34,7 +34,7 @@
         </div>
     </nav>
     <main>
-        <form action="/sendCliente" method="post">
+        <form action="/sendCliente" id="formCliente" method="post">
             <div class="pesquisa">
                     <input type="text" name="" id="pesquisaCliente" placeholder="Buscar CPF...">
                     <button type="button" onclick="buscarCliente()">🔍</button>
@@ -79,23 +79,23 @@
         </div>
         <div class="Modelo">
             <div class="modelo">
-                    <input type="text" name="modeloCliente" placeholder="Modelo...">
+                    <input type="text" name="modeloCliente" id="modeloCliente" placeholder="Modelo...">
 
             </div>
             <div class="cor">
-                    <input type="text" name="corCliente" placeholder="Cor...">
+                    <input type="text" name="corCliente" id="corCliente" placeholder="Cor...">
 
             </div>
             <div class="placa">
-                    <input type="text" name="placaCliente" placeholder="Placa...">
+                    <input type="text" name="placaCliente" id="placaCliente" placeholder="Placa...">
               
             </div>
+             <!-- botões de entrada e saída -->
             <div class="botaoMensal">
-                <button type="submit" class="registroMensal">
+                <button type="button" class="registroMensal" onclick="enviarPara('/registrarentradacliente')">
                     <p>Entrada Mensal</p>
                 </button>
-            </form>
-                <button class="saidaMensal">
+                <button type="button" class="saidaMensal" onclick="enviarPara('/registrarsaidacliente')">
                     <p>Saida mensal</p>
                 </button>
             </div>

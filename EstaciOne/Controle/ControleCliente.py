@@ -31,7 +31,7 @@ class ControleCliente:
 
     def buscarCliente(self, cpf):
         self.conexao = ConexaoBD()
-        comandosql = 'select c.nome_cliente, c.cpf_cliente, c.telefone_cliente, c.email_cliente, p.nome_plano, v.localizacao from tb_clientes c inner join tb_planos p on c.id_plano_fk = p.id_plano inner join tb_vagas v on p.id_plano = v.id_plano_fk where c.cpf_cliente = %s limit 1'
+        comandosql = 'select c.nome_cliente, c.cpf_cliente, c.telefone_cliente, c.email_cliente, p.nome_plano, v.localizacao, vei.modelo_veiculo, vei.placa_veiculo, vei.cor_veiculo from tb_veiculos vei inner join tb_clientes c on vei.id_cliente_fk = c.id_cliente inner join tb_planos p  on c.id_plano_fk = p.id_plano  inner join tb_vagas v  on p.id_plano = v.id_plano_fk  where c.cpf_cliente = %s limit 1'
         self.conexao.cursor.execute(comandosql, (cpf, ))
         resultado = self.conexao.cursor.fetchone()
         self.conexao.fecharConexao()
@@ -42,7 +42,10 @@ class ControleCliente:
                 "telefone":resultado[2],
                 "email":resultado[3],
                 "plano":resultado[4],
-                "vaga":resultado[5]
+                "vaga":resultado[5],
+                "modelo":resultado[6],
+                "placa":resultado[7],
+                "cor":resultado[8]
             }
         else:
             return None

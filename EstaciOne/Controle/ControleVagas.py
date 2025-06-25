@@ -68,7 +68,7 @@ class ControleVaga:
 
     def mostrarVagasOcupadas(self):
         self.conexao = ConexaoBD()
-        comandosql = 'select v.localizacao from tb_vagas v inner join tb_historico h on v.id_vaga = h.id_vaga_fk where v.disponibilidade = "Ocupado"'
+        comandosql = 'select v.localizacao from tb_veiculos vei inner join tb_historico h on vei.id_veiculo = h.id_veiculo_fk inner join tb_vagas v on h.id_vaga_fk = v.id_vaga where v.disponibilidade = "Ocupado" and vei.estado = "Estacionado"'
         self.conexao.cursor.execute(comandosql)
         resultado = self.conexao.cursor.fetchall()
         self.conexao.fecharConexao()

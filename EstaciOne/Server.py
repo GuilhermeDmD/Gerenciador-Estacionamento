@@ -25,6 +25,7 @@ def paginaInicial():
 @app.route("/verificarvagas")
 def verificarVagas():
     dados = controleVaga.mostrarVagasOcupadas()
+    print("Vagas ocupadas: ", dados)
     return jsonify(dados)
 
 @app.route("/gerarpagamentopopup")
@@ -130,10 +131,37 @@ def cadastrarCliente():
 def buscarCliente():
     cpf = request.args.get("cpf")
     dados = controleCliente.buscarCliente(cpf)
+    print("Dados do cliente pesquisado: ", dados)
     if dados:
         return jsonify({**dados, "encontrado": True})
     else:
         return jsonify({"encontrado": False})
+    
+@app.route("/registrarentradacliente", methods = ["POST"])
+def registrarEntradaCliente():
+    modelo = request.form.get('modeloCliente')
+    cor = request.form.get('corCliente')
+    placa = request.form.get('placaCliente')
+    vaga = request.form.get('vaga')
+
+    veiculo = Veiculo(placa, modelo, cor)
+    controleHist.addHistorico(veiculo, vaga)
+    controleEstac.trocaEstadoMensal(veiculo)
+
+    return redirect("/cadastrarcliente")
+
+@app.route("/registrarsaidacliente", methods = ["POST"])
+def registrarSaidaCliente():
+    modelo = request.form.get('modeloCliente')
+    cor = request.form.get('corCliente')
+    placa = request.form.get('placaCliente')
+
+    veiculo = Veiculo(placa, modelo, cor)
+    controleHist.addInfoSaida(veiculo)
+    controleEstac.trocaEstadoMensal(veiculo)
+
+    return redirect("/cadastrarcliente")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

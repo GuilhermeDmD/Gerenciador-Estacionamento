@@ -2,11 +2,15 @@ from Entidades.Vagas import Vagas
 from Entidades.Veiculo import Veiculo
 from Entidades.Cliente import Cliente
 from Controle.ControleCliente import ControleCliente
+from Controle.ControleVeiculo import ControleVeiculo
+from Controle.ControleVagas import ControleVaga
 from ConexaoBD import ConexaoBD
 
 class ControleEstac:
     def __init__(self):
-        self.cliente = ControleCliente()
+        self.controleCliente = ControleCliente()
+        self.controleVeiculo = ControleVeiculo()
+        self.controleVagas = ControleVaga()
 
     # testado e funcionando
     def addVeiculoAvulso(self, veiculo: Veiculo):
@@ -62,9 +66,30 @@ class ControleEstac:
     # TESTADO E FUNCIONANDO
     def addVeiculoMensal(self, veiculo: Veiculo, cpf):
         self.conexao = ConexaoBD()
-        idCliente = self.cliente.buscaIdCliente(cpf)
+        idCliente = self.controleCliente.buscaIdCliente(cpf)
         inserirVeiculoMensal = 'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES(%s, %s, %s, "Estacionado", %s)'
         self.conexao.cursor.execute(inserirVeiculoMensal, (veiculo.placa, veiculo.modelo, veiculo.cor, idCliente))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
+
+    def trocaEstadoMensal(self, veiculo: Veiculo):
+        self.conexao = ConexaoBD()
+        idVeiculo = self.controleVeiculo.buscarIdVeiculo(veiculo)
+        comandoVerificacao = 'select estado from tb_veiculos where id_veiculo = %s'
+        self.conexao.cursor.execute(comandoVerificacao, (idVeiculo, ))
+        resultado = self.conexao.cursor.fetchone()
+        print("resultado: ", resultado)
+        if resultado[0] == "Estacionado":
+            comandoSql = 'update tb_veiculos set estado = "Não estacionado" where id_veiculo = %s'
+            self.conexao.cursor.execute(comandoSql, (idVeiculo, ))
+            self.conexao.conexao.commit()
+            self.conexao.fecharConexao()
+
+        elif resultado[0] == "não estacionado":
+            comandoSql = 'update tb_veiculos set estado = "Estacionado" where id_veiculo = %s'
+            self.conexao.cursor.execute(comandoSql, (idVeiculo, ))
+            self.conexao.conexao.commit()
+            self.conexao.fecharConexao()
+
+
 
