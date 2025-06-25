@@ -73,9 +73,19 @@ def buscarVeiculo():
 def paginaFeedback():
     return render_template("feedback.html")
 
+# histórico
 @app.route("/historico")
 def paginaHistorico():
     return render_template("Historico.html")
+
+@app.route("/buscarhistorico")
+def buscarHistorico():
+    placa = request.args.get("placa")
+    print("Placa achada:", placa)
+    dados = controleHist.getHistorico(placa)
+    print("Dados do histórico: ",dados)
+    return jsonify(dados)
+
 
 # tá pronto já
 @app.route("/anotacoes")

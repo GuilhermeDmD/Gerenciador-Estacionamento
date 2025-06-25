@@ -44,5 +44,20 @@ class ControleHist:
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 
+    def getHistorico(self, placa):
+        self.conexao = ConexaoBD()
+        comandosql = 'select get_historico(%s)'
+        self.conexao.cursor.execute(comandosql, (placa, ))
+        historico = self.conexao.cursor.fetchone()
+        if historico:
+            return{
+                "historico":historico[0]
+            }
+        else:
+            return "Dados não encontrados"
+
+
+    
+
 
     
