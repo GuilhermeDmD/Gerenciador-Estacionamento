@@ -6,6 +6,7 @@ from Controle.ControleVagas import ControleVaga
 from Controle.ControleCliente import ControleCliente
 from Controle.ControleVeiculo import ControleVeiculo
 from Controle.ControlePlanos import ControlePlanos
+from Controle.ControleHist import ControleHist
 
 app = Flask(__name__)
 controleVaga = ControleVaga()
@@ -14,7 +15,9 @@ controleVaga = ControleVaga()
 controleCliente = ControleCliente()
 controleVeiculo = ControleVeiculo()
 controlePlanos = ControlePlanos()
+controleHist = ControleHist()
 
+# Index
 @app.route("/")
 def paginaInicial():
     return render_template("index.html")
@@ -24,6 +27,14 @@ def verificarVagas():
     dados = controleVaga.mostrarVagasOcupadas()
     return jsonify(dados)
 
+@app.route("/gerarpagamentopopup")
+def gerarPagamentoPopUp():
+    vaga = request.args.get("vaga")
+    print("Vaga clicada: ", vaga)
+    dados = controleEstac.buscarVeiculoAvulsoPorVaga(vaga)
+    return jsonify(dados)
+
+# registrar veiculo
 @app.route("/registarveiculo")
 def paginaRegistrarVeiculos():
     vagas = controleVaga.mostrarVagasAvulsas()
@@ -37,9 +48,11 @@ def paginaRegistrar():
     vaga = request.form.get('vaga')
     veiculo = Veiculo(placa, modelo, cor)
     
-   
+#    adicionando os dados no banco de dados
     controleEstac.addVeiculoAvulso(veiculo)
     controleVaga.ocuparVaga(vaga)
+    controleHist.addHistorico(veiculo, vaga)
+    
     #precisa add no histórico tbm
     return redirect("/registarveiculo")
 
@@ -60,15 +73,26 @@ def buscarVeiculo():
 def paginaFeedback():
     return render_template("feedback.html")
 
+# histórico
 @app.route("/historico")
 def paginaHistorico():
     return render_template("Historico.html")
+
+@app.route("/buscarhistorico")
+def buscarHistorico():
+    placa = request.args.get("placa")
+    print("Placa achada:", placa)
+    dados = controleHist.getHistorico(placa)
+    print("Dados do histórico: ",dados)
+    return jsonify(dados)
+
 
 # tá pronto já
 @app.route("/anotacoes")
 def paginaAnotacoes():
     return render_template("Anotacoes.html")
 
+# cadastro do cliente
 @app.route("/cadastrarcliente")
 def paginaCadastrarCliente():
     planos = controlePlanos.mostrarPlanos()
@@ -97,9 +121,6 @@ def cadastrarCliente():
     
     
     return redirect("/cadastrarcliente")
-
-
-
 
 @app.route("/buscarcliente")
 def buscarCliente():
