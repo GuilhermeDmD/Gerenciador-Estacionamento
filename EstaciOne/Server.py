@@ -1,4 +1,7 @@
-from flask import Flask, jsonify, render_template, request, redirect
+from flask import Flask, jsonify, render_template, request, redirect, send_file
+import pandas as pd
+from io import BytesIO
+from ConexaoBD import ConexaoBD
 from Entidades.Veiculo import Veiculo
 from Entidades.Cliente import Cliente
 from Controle.ControleEstac import ControleEstac
@@ -137,6 +140,7 @@ def buscarCliente():
     else:
         return jsonify({"encontrado": False})
     
+<<<<<<< HEAD
 @app.route("/registrarentradacliente", methods = ["POST"])
 def registrarEntradaCliente():
     modelo = request.form.get('modeloCliente')
@@ -161,6 +165,46 @@ def registrarSaidaCliente():
     controleEstac.trocaEstadoMensal(veiculo)
 
     return redirect("/cadastrarcliente")
+=======
+    
+
+    #Rota para o relatorio do Financeirooo mensal
+@app.route("/download/relatorio")
+def download_relatorio():
+    tipo = request.args.get("tipo", default="mensal")  # pega tipo da query string
+
+    try:
+        conexao = ConexaoBD()
+        
+        if tipo == "diario":
+            query = "SELECT * FROM vw_pgto_diario"
+            nome_arquivo = "relatorio_diario.xlsx"
+        else:  # padrão é mensal
+            query = "SELECT * FROM vw_pgto_mensal"
+            nome_arquivo = "relatorio_mensal.xlsx"
+
+        conexao.cursor.execute(query)
+        colunas = [desc[0] for desc in conexao.cursor.description]
+        dados = conexao.cursor.fetchall()
+        conexao.fecharConexao()
+
+        df = pd.DataFrame(dados, columns=colunas)
+
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            df.to_excel(writer, index=False, sheet_name='Relatório')
+        output.seek(0)
+
+        return send_file(
+            output,
+            download_name=nome_arquivo,
+            as_attachment=True,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+    except Exception as e:
+        return f"Erro ao gerar relatório: {e}", 500
+
+>>>>>>> b65a71a741797266b0c3806f8c01ec4f11638b54
 
 
 if __name__ == "__main__":
