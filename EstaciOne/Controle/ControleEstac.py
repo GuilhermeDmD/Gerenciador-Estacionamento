@@ -11,8 +11,8 @@ class ControleEstac:
     # testado e funcionando
     def addVeiculoAvulso(self, veiculo: Veiculo):
         self.conexao = ConexaoBD()
-        inserirVeiculo = f'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES("{veiculo.placa}", "{veiculo.modelo}", "{veiculo.cor}", "Ativo", null)'
-        self.conexao.cursor.execute(inserirVeiculo)
+        inserirVeiculo = 'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES(%s, %s, %s, "Estacionado", null)'
+        self.conexao.cursor.execute(inserirVeiculo, (veiculo.placa, veiculo.modelo, veiculo.cor))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 
@@ -53,8 +53,8 @@ class ControleEstac:
     # testado e funcionando
     def encerrarVeiculo(self, veiculo: Veiculo):
         self.conexao = ConexaoBD()
-        removerVeiculo = f'update tb_veiculos set estado = "Excluído" where placa_veiculo = "{veiculo.placa}"'
-        self.conexao.cursor.execute(removerVeiculo)
+        removerVeiculo = 'update tb_veiculos set estado = "Não estacionado" where placa_veiculo = %s'
+        self.conexao.cursor.execute(removerVeiculo, (veiculo.placa, ))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
         print("Veículo removido")
@@ -63,8 +63,8 @@ class ControleEstac:
     def addVeiculoMensal(self, veiculo: Veiculo, cpf):
         self.conexao = ConexaoBD()
         idCliente = self.cliente.buscaIdCliente(cpf)
-        inserirVeiculoMensal = f'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES("{veiculo.placa}", "{veiculo.modelo}", "{veiculo.cor}", "Ativo", {idCliente})'
-        self.conexao.cursor.execute(inserirVeiculoMensal)
+        inserirVeiculoMensal = 'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES(%s, %s, %s, "Estacionado", %s)'
+        self.conexao.cursor.execute(inserirVeiculoMensal, (veiculo.placa, veiculo.modelo, veiculo.cor, idCliente))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 

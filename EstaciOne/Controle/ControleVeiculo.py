@@ -9,8 +9,8 @@ class ControleVeiculo:
     #TESTADO E FUNCIONANDO
     def buscarIdVeiculo(self, veiculo:Veiculo):
         self.conexao = ConexaoBD()
-        comandoSql = f'select id_veiculo from tb_veiculos where placa_veiculo = "{veiculo.placa}"'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'select id_veiculo from tb_veiculos where placa_veiculo = %s'
+        self.conexao.cursor.execute(comandoSql, (veiculo.placa, ))
         idVeiculo = self.conexao.cursor.fetchone()
         return idVeiculo[0]
     
@@ -18,7 +18,7 @@ class ControleVeiculo:
     def mostrarVeiculo(self):
         self.conexao = ConexaoBD()
         listaVeiculos = []
-        comandoSql = f'select placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk from tb_veiculos'
+        comandoSql = 'select placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk from tb_veiculos'
         self.conexao.cursor.execute(comandoSql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
         self.conexao.fecharConexao()
@@ -31,7 +31,7 @@ class ControleVeiculo:
         self.conexao = ConexaoBD()
         idCliente = self.controleCliente.buscaIdCliente(cpf)
         print(idCliente)
-        comandosql = f'insert into tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) values("{veiculo.placa}", "{veiculo.modelo}", "{veiculo.cor}", "Excluído", {idCliente})'
-        self.conexao.cursor.execute(comandosql)
+        comandosql = 'insert into tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) values(%s, %s, %s, "Não estacionado", %s)'
+        self.conexao.cursor.execute(comandosql, (veiculo.placa, veiculo.modelo, veiculo.cor, idCliente))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()

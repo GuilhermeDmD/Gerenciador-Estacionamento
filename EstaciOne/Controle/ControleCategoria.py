@@ -15,8 +15,8 @@ class ControleCategoia:
     def reajustarValor(self, descricaoCat, novoValor):
         self.conexao = ConexaoBD()
         idCategoria = self.buscarIdCategoria(descricaoCat)
-        comandoSql = f'update tb_categoria set valor = {novoValor} where id_categoria = {idCategoria}'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'update tb_categoria set valor = %s where id_categoria = %s'
+        self.conexao.cursor.execute(comandoSql, (novoValor, idCategoria))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
         
