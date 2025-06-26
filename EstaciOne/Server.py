@@ -63,6 +63,7 @@ def paginaRegistrar():
 def buscarVeiculo():
     placa = request.args.get("placa")
     dados = controleEstac.buscarVeiculoAvulso(placa)
+    print("dados encontrados:", dados)
     if dados:
         return jsonify({**dados, "encontrado": True})
     else:

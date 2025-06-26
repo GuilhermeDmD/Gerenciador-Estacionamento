@@ -19,8 +19,8 @@ class ControleEstac:
 
     def buscarVeiculoAvulso(self, placa):
         self.conexao = ConexaoBD()
-        comandosql = f'select v.placa_veiculo, v.modelo_veiculo, v.cor_veiculo, vg.localizacao from tb_veiculos v inner join tb_historico h on v.id_veiculo = h.id_veiculo_fk inner join tb_vagas vg on h.id_vaga_fk = vg.id_vaga where v.placa_veiculo = "{placa}"'
-        self.conexao.cursor.execute(comandosql)
+        comandosql = 'select v.placa_veiculo, v.modelo_veiculo, v.cor_veiculo, vg.localizacao from tb_veiculos v inner join tb_historico h on v.id_veiculo = h.id_veiculo_fk inner join tb_vagas vg on h.id_vaga_fk = vg.id_vaga where v.placa_veiculo = %s limit 1'
+        self.conexao.cursor.execute(comandosql, (placa, ))
         resultado = self.conexao.cursor.fetchone()
         self.conexao.fecharConexao()
         if resultado:
