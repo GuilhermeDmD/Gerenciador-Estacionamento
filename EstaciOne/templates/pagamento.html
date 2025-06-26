@@ -19,9 +19,6 @@
         <div class="saida">
     <input type="text" name="saida" placeholder="Hora de Saída..." value="{{ dados.saida }}">
         </div>
-        <div class="data">
-    <input type="text" name="data" placeholder="Data..." value="{{ dados.data }}">
-        </div>
         <div class="utilizada">
     <input type="text" name="vaga" placeholder="Vaga Utilizada..." value="{{ dados.vaga }}">
         </div>
@@ -29,8 +26,6 @@
     <main>
        <div class="principal">
             <h2>Discriminação dos Serviços:</h2>
-            <p>Total Vagas: {{ dados.total_vagas }}</p>
-            <p>Total de Horas: {{ dados.total_horas }}</p>
             <p>Valor total a ser pago: R$ {{ dados["valor"] }}</p>
        </div>
        <div class="botao">
@@ -41,10 +36,10 @@
                 <p>Finalizar</p>
             </button>
             <button  >
-                <p><img src="/EstaciOne/static/assets/imgs/download.webp" alt="Imagem de Download"></p>
+                <p><img src="../static/assets/imgs/download.png" alt="Imagem de Download"></p>
             </button>
             <button >
-                <p><img src="/EstaciOne/static/assets/imgs/impresora.avif" alt="Impresoara"></p>
+                <p><img src="../static/assets/imgs/printer.png" alt="Impresoara"></p>
             </button>
         </div>
     </main>
