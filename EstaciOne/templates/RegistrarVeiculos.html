@@ -19,22 +19,23 @@
         </div>
         
     </header>
-     <nav>
+   <nav>
         <div class="minha-div">
             <button class="meu_botao" onclick="window.location.href='/'">Visualização Atualizada</button>
         </div>
         <div class="minha-div">
-            <button class="meu_botao1" onclick="window.location.href='/registarveiculo'">Registro Veículo</button>
+            <button class="meu_botao1" onclick="window.location.href='/registarveiculo'">Veículo Avulsos</button>
         </div>
         <div class="minha-div">
-            <button class="meu_botao" onclick="window.location.href='/cadastrarcliente'">Cadastro Cliente</button>
+            <button class="meu_botao" onclick="window.location.href='/cadastrarcliente'">Clientes</button>
         </div>
         <div class="minha-div">
             <button class="meu_botao" onclick="window.location.href='/historico'">Histórico</button>
         </div>
     </nav>
     <main>
-        <form action="/sendVeiculo" method="post">
+        <!-- aqui o pagamento avulso -->
+        <form action="/sendVeiculo" id="formRegistrarVeiculo" method="post">
             <div class="pesquisa">
                 <input type="text" name="" id="pesquisaPlaca" placeholder="Pesquisar placa...">
                 <button type="button" onClick = "buscarVeiculo()">🔍</button>            
@@ -85,17 +86,18 @@
                 <p>Limpar</p>
             </button>
             
-            <button  class="finaliza">
-                <p><link rel="stylesheet" href="pagamento.html">Finalizar</p>
+            <button type="button" class="finaliza" onclick="enviarParaPagamento()">
+                <p>Finalizar</p>
             </button>
-            </form>
-        </div>
+            </div>
+        </form>
         
     </main>
     <footer>
 
     </footer>
     <script src="../static/js/registrarVeiculo.js"></script>
+    <script src="../static/js/pagamentoAvulsoSend.js"></script>
 </body>
 
 </html>

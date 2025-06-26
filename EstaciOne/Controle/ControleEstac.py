@@ -1,6 +1,4 @@
-from Entidades.Vagas import Vagas
 from Entidades.Veiculo import Veiculo
-from Entidades.Cliente import Cliente
 from Controle.ControleCliente import ControleCliente
 from Controle.ControleVeiculo import ControleVeiculo
 from Controle.ControleVagas import ControleVaga
@@ -12,7 +10,6 @@ class ControleEstac:
         self.controleVeiculo = ControleVeiculo()
         self.controleVagas = ControleVaga()
 
-    # testado e funcionando
     def addVeiculoAvulso(self, veiculo: Veiculo):
         self.conexao = ConexaoBD()
         inserirVeiculo = 'INSERT INTO tb_veiculos(placa_veiculo, modelo_veiculo, cor_veiculo, estado, id_cliente_fk) VALUES(%s, %s, %s, "Estacionado", null)'
@@ -36,7 +33,6 @@ class ControleEstac:
         else:
             return None
     
-    # para o menu_contexto
     def buscarVeiculoAvulsoPorVaga(self, vaga):
         self.conexao = ConexaoBD()
         comandosql = 'select v.modelo_veiculo, v.cor_veiculo, v.placa_veiculo, vg.localizacao from tb_veiculos v inner join tb_historico h on v.id_veiculo = h.id_veiculo_fk inner join tb_vagas vg on h.id_vaga_fk = vg.id_vaga where vg.tipo = "Avulso" and vg.localizacao = %s ORDER BY h.id_historico DESC LIMIT 1'
@@ -54,16 +50,6 @@ class ControleEstac:
             return None
 
 
-    # testado e funcionando
-    def encerrarVeiculo(self, veiculo: Veiculo):
-        self.conexao = ConexaoBD()
-        removerVeiculo = 'update tb_veiculos set estado = "Não estacionado" where placa_veiculo = %s'
-        self.conexao.cursor.execute(removerVeiculo, (veiculo.placa, ))
-        self.conexao.conexao.commit()
-        self.conexao.fecharConexao()
-        print("Veículo removido")
-
-    # TESTADO E FUNCIONANDO
     def addVeiculoMensal(self, veiculo: Veiculo, cpf):
         self.conexao = ConexaoBD()
         idCliente = self.controleCliente.buscaIdCliente(cpf)
@@ -72,13 +58,12 @@ class ControleEstac:
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 
-    def trocaEstadoMensal(self, veiculo: Veiculo):
+    def trocaEstadoVeiculo(self, veiculo: Veiculo):
         self.conexao = ConexaoBD()
         idVeiculo = self.controleVeiculo.buscarIdVeiculo(veiculo)
         comandoVerificacao = 'select estado from tb_veiculos where id_veiculo = %s'
         self.conexao.cursor.execute(comandoVerificacao, (idVeiculo, ))
         resultado = self.conexao.cursor.fetchone()
-        print("resultado: ", resultado)
         if resultado[0] == "Estacionado":
             comandoSql = 'update tb_veiculos set estado = "Não estacionado" where id_veiculo = %s'
             self.conexao.cursor.execute(comandoSql, (idVeiculo, ))

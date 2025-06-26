@@ -2,7 +2,7 @@ from ConexaoBD import ConexaoBD
 from Controle.ControleVeiculo import ControleVeiculo
 from Controle.ControleVagas import ControleVaga
 from Entidades.Veiculo import Veiculo
-from datetime import datetime, date
+from datetime import datetime
 
 class ControleHist:
     def __init__(self):
@@ -11,7 +11,6 @@ class ControleHist:
         self.dataHoraAtual = datetime.now()
        
 
-    #TESTADO E FUNCIONANDO
     def buscaIdHistorico(self, veiculo: Veiculo):
         self.conexao = ConexaoBD()
         idVeiculo = self.controleVeiculo.buscarIdVeiculo(veiculo)
@@ -20,7 +19,6 @@ class ControleHist:
         idHistorico = self.conexao.cursor.fetchone()
         return idHistorico[0]
 
-    #TESTADO E FUNCIONANDO provavelmente essa não vai usar
     def addInfoSaida(self, veiculo:Veiculo):
         self.conexao = ConexaoBD()
         idHistorico = self.buscaIdHistorico(veiculo)
@@ -32,7 +30,6 @@ class ControleHist:
 
     def addHistorico(self, veiculo: Veiculo, vaga):
         self.conexao = ConexaoBD()
-        print("dados: ", veiculo.modelo, veiculo.placa, veiculo.cor, vaga)
         dataHoraAtual = self.dataHoraAtual.strftime('%Y-%m-%d %H:%M:%S')
         idVeiculo = self.controleVeiculo.buscarIdVeiculo(veiculo)
         idVaga = self.controleVaga.buscarIdVaga(vaga)

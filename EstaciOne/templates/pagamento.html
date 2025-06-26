@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,34 +14,30 @@
     </header>
     <nav class="dados">
         <div class="chegada">
-            <input type="text" name="modeloCliente" placeholder="Hora de Chegada...">
-
+    <input type="text" name="chegada" placeholder="Hora de Chegada..." value="{{ dados.entrada }}">
         </div>
         <div class="saida">
-            <input type="text" name="corCliente" placeholder="Hora de Saida...">
-
+    <input type="text" name="saida" placeholder="Hora de Saída..." value="{{ dados.saida }}">
         </div>
         <div class="data">
-            <input type="text" name="placaCliente" placeholder="Data...">
-
+    <input type="text" name="data" placeholder="Data..." value="{{ dados.data }}">
         </div>
         <div class="utilizada">
-            <input type="text" name="placaCliente" placeholder="Vaga Utilizada...">
-
+    <input type="text" name="vaga" placeholder="Vaga Utilizada..." value="{{ dados.vaga }}">
         </div>
     </nav>
     <main>
        <div class="principal">
             <h2>Discriminação dos Serviços:</h2>
-            <p>Total Vagas:</p>
-            <p>Total de Horas:</p>
-            <p>Valor total a ser pago:</p>
+            <p>Total Vagas: {{ dados.total_vagas }}</p>
+            <p>Total de Horas: {{ dados.total_horas }}</p>
+            <p>Valor total a ser pago: R$ {{ dados["valor"] }}</p>
        </div>
        <div class="botao">
             <button type="submit" class="imprimir">
                 <p>Imprimir</p>
             </button>
-            <button type="reset" class="finalizar">
+            <button type="reset" class="finalizar" onclick="window.location.href='/'">
                 <p>Finalizar</p>
             </button>
             <button  >

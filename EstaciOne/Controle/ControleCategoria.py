@@ -1,10 +1,10 @@
-from Entidades.CategoriaVaga import CategoriaVaga
 from ConexaoBD import ConexaoBD
     
 class ControleCategoia:
     def __init__(self):
        pass
 
+    # não está sendo usado
     def buscarIdCategoria(self, descricaoPesq):
         self.conexao = ConexaoBD()
         comandoSql = f'select id_categoria from tb_categoria where descricao like "{descricaoPesq}%" limit 1'

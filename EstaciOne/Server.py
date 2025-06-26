@@ -1,7 +1,6 @@
-from flask import Flask, jsonify, render_template, request, redirect, send_file
-import pandas as pd
+from flask import Flask, jsonify, render_template, request, redirect, send_file, url_for
+# import pandas as pd
 from io import BytesIO
-from ConexaoBD import ConexaoBD
 from Entidades.Veiculo import Veiculo
 from Entidades.Cliente import Cliente
 from Controle.ControleEstac import ControleEstac
@@ -10,6 +9,7 @@ from Controle.ControleCliente import ControleCliente
 from Controle.ControleVeiculo import ControleVeiculo
 from Controle.ControlePlanos import ControlePlanos
 from Controle.ControleHist import ControleHist
+from Controle.ControlePagamento import ControlePagamento
 
 app = Flask(__name__)
 controleVaga = ControleVaga()
@@ -19,6 +19,7 @@ controleCliente = ControleCliente()
 controleVeiculo = ControleVeiculo()
 controlePlanos = ControlePlanos()
 controleHist = ControleHist()
+controlePag = ControlePagamento()
 
 # Index
 @app.route("/")
@@ -37,6 +38,7 @@ def gerarPagamentoPopUp():
     print("Vaga clicada: ", vaga)
     dados = controleEstac.buscarVeiculoAvulsoPorVaga(vaga)
     return jsonify(dados)
+# Fim Index
 
 # registrar veiculo
 @app.route("/registarveiculo")
@@ -52,12 +54,9 @@ def paginaRegistrar():
     vaga = request.form.get('vaga')
     veiculo = Veiculo(placa, modelo, cor)
     
-#    adicionando os dados no banco de dados
     controleEstac.addVeiculoAvulso(veiculo)
-    controleVaga.ocuparVaga(vaga)
+    controleVaga.mudaEstadoVaga(vaga)
     controleHist.addHistorico(veiculo, vaga)
-    
-    #precisa add no histórico tbm
     return redirect("/registarveiculo")
 
 @app.route("/buscarveiculo")
@@ -68,16 +67,48 @@ def buscarVeiculo():
         return jsonify({**dados, "encontrado": True})
     else:
         return jsonify({"encontrado": False})
-    
+# Fim do registrar veiculo
+  
+# pagamento avulsos envio
+@app.route("/pagamentoavulso", methods=["POST"])
+def pagamentoAvulso():
+    dados = request.get_json()
+    print("Dados recebidos:", dados)
 
-# uma do finalizar
+    modelo = dados['modeloCarro'] if 'modeloCarro' in dados else None
+    cor = dados['corCarro'] if 'corCarro' in dados else None
+    placa = dados['placaCarro'] if 'placaCarro' in dados else None
+    vaga = dados['vaga'] if 'vaga' in dados else None
+
+    veiculo = Veiculo(placa, modelo, cor)
+    controlePag.realizarPagamentoAvulso(placa)
+    controleEstac.trocaEstadoVeiculo(veiculo)
+    controleVaga.mudaEstadoVaga(vaga)
+
+    return jsonify({
+        "redirect": url_for('indexPagamentosAvulsos', placa=placa, modelo=modelo, cor=cor)
+    })
+   
+# Fim pagamento avulsos envio
+
+# pagina pagamentos
+@app.route("/indexpagamentosavulsos")
+def indexPagamentosAvulsos():
+    placa = request.args.get("placa")
+    modelo = request.args.get("modelo")
+    cor = request.args.get("cor")
+
+    veiculo = Veiculo(placa, modelo, cor)
+    dados = controlePag.getPagamentoAvulso(veiculo)
+    print("dados do pagamento:", dados)
+
+    return render_template("pagamento.html", dados=dados)
+# Fim pagina pagamentos
     
-#tá pronto já
 @app.route("/feedback")
 def paginaFeedback():
     return render_template("feedback.html")
 
-# histórico
 @app.route("/historico")
 def paginaHistorico():
     return render_template("Historico.html")
@@ -94,8 +125,6 @@ def buscarHistorico():
     print("Dados do histórico: ",dados)
     return jsonify(dados)
 
-
-# tá pronto já
 @app.route("/anotacoes")
 def paginaAnotacoes():
     return render_template("Anotacoes.html")
@@ -125,7 +154,7 @@ def cadastrarCliente():
 
     controleCliente.addCliente(novoCliente, vaga, plano)
     controleVeiculo.addVeiculo(novoVeiculo, cpf)
-    controleVaga.ocuparVaga(vaga)
+    controleVaga.mudaEstadoVaga(vaga)
     
     
     return redirect("/cadastrarcliente")
@@ -149,7 +178,7 @@ def registrarEntradaCliente():
 
     veiculo = Veiculo(placa, modelo, cor)
     controleHist.addHistorico(veiculo, vaga)
-    controleEstac.trocaEstadoMensal(veiculo)
+    controleEstac.trocaEstadoVeiculo(veiculo)
 
     return redirect("/cadastrarcliente")
 
@@ -161,46 +190,46 @@ def registrarSaidaCliente():
 
     veiculo = Veiculo(placa, modelo, cor)
     controleHist.addInfoSaida(veiculo)
-    controleEstac.trocaEstadoMensal(veiculo)
+    controleEstac.trocaEstadoVeiculo(veiculo)
 
     return redirect("/cadastrarcliente")
-    
+#Fim cadastro do cliente    
 
     #Rota para o relatorio do Financeirooo mensal
-@app.route("/download/relatorio")
-def download_relatorio():
-    tipo = request.args.get("tipo", default="mensal")  # pega tipo da query string
+# @app.route("/download/relatorio")
+# def download_relatorio():
+#     tipo = request.args.get("tipo", default="mensal")  # pega tipo da query string
 
-    try:
-        conexao = ConexaoBD()
+#     try:
+#         conexao = ConexaoBD()
         
-        if tipo == "diario":
-            query = "SELECT * FROM vw_pgto_diario"
-            nome_arquivo = "relatorio_diario.xlsx"
-        else:  # padrão é mensal
-            query = "SELECT * FROM vw_pgto_mensal"
-            nome_arquivo = "relatorio_mensal.xlsx"
+#         if tipo == "diario":
+#             query = "SELECT * FROM vw_pgto_diario"
+#             nome_arquivo = "relatorio_diario.xlsx"
+#         else:  # padrão é mensal
+#             query = "SELECT * FROM vw_pgto_mensal"
+#             nome_arquivo = "relatorio_mensal.xlsx"
 
-        conexao.cursor.execute(query)
-        colunas = [desc[0] for desc in conexao.cursor.description]
-        dados = conexao.cursor.fetchall()
-        conexao.fecharConexao()
+#         conexao.cursor.execute(query)
+#         colunas = [desc[0] for desc in conexao.cursor.description]
+#         dados = conexao.cursor.fetchall()
+#         conexao.fecharConexao()
 
-        df = pd.DataFrame(dados, columns=colunas)
+#         df = pd.DataFrame(dados, columns=colunas)
 
-        output = BytesIO()
-        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            df.to_excel(writer, index=False, sheet_name='Relatório')
-        output.seek(0)
+#         output = BytesIO()
+#         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+#             df.to_excel(writer, index=False, sheet_name='Relatório')
+#         output.seek(0)
 
-        return send_file(
-            output,
-            download_name=nome_arquivo,
-            as_attachment=True,
-            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        )
-    except Exception as e:
-        return f"Erro ao gerar relatório: {e}", 500
+#         return send_file(
+#             output,
+#             download_name=nome_arquivo,
+#             as_attachment=True,
+#             mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+#         )
+#     except Exception as e:
+#         return f"Erro ao gerar relatório: {e}", 500
 
 
 
