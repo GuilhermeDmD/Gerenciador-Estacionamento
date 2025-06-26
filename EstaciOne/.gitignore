@@ -1,0 +1,23 @@
+# Arquivos de Cache e Bytecode do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pastas de Ambiente Virtual
+venv/
+venv.bak/
+env/
+env.bak/
+.venv/
+
+# Arquivos de configuração de editores
+.vscode/
+.idea/
+
+# Arquivos de ambiente (contém senhas e chaves de API!)
+.env
+.flaskenv
+
+# Outros
+*.log
