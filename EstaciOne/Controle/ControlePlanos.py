@@ -12,7 +12,7 @@ class ControlePlanos:
     
     def mostrarPlanos(self):
         self.conexao = ConexaoBD()
-        comandoSql = f'SELECT tb_planos.nome_plano FROM tb_planos inner join tb_vagas on tb_planos.id_plano = tb_vagas.id_plano_fk where tb_vagas.disponibilidade = "Disponivel";'
+        comandoSql = 'SELECT tb_planos.nome_plano FROM tb_planos inner join tb_vagas on tb_planos.id_plano = tb_vagas.id_plano_fk where tb_vagas.disponibilidade = "Disponivel" group by tb_planos.id_plano'
         self.conexao.cursor.execute(comandoSql)
         resultadoPesquisa = self.conexao.cursor.fetchall()
         self.conexao.fecharConexao()
