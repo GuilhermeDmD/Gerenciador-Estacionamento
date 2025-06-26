@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+    background-color: #EDE5DE;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background-color: #A89898;
+}
+ h1{
+    margin: auto;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 250px; 
+    flex-wrap: wrap; 
+    padding: 30px;
+}
+
+.dados {
+    height:100%;
+    width: 315px;
+    
+    border-radius: 30px;
+    margin: 40px 0;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.chegada,
+.saida,
+.data,
+.utilizada {
+    margin: 20px auto;
+    height: 135px;
+    padding: 30px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.chegada input,
+.saida input,
+.data input,
+.utilizada input{
+    padding: 1px 25px;
+    background-color: #D7D9DD;
+    border-radius: 10px ;
+    width: 300px;
+    height: 100px;
+    font-size: 20px;
+    outline: none;
+    text-align: center;
+}
+main {
+    margin: auto;
+    text-align: center;
+}
+.principal {
+    text-align: center;
+    background-color: #D7D9DD;
+    border: 15px solid #A89898;
+    border-radius: 20px;
+    width: 800px;
+    height: 200px;
+    margin-left: auto;
+    
+}
+
+h2 {
+    font-size: 30px;
+}
+
+p {
+    margin: 10px;
+    font-size: 20px;
+    padding: 10px;
+}
+.botao {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* <<< aumenta o espaço entre os botões */
+    flex-wrap: wrap; /* permite quebrar para baixo se necessário */
+    padding: 10px;
+    
+}
+.imprimir {
+    background-color: #10AA4F;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.finalizar {
+    background-color: #FF5757;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+
+img {
+    width: 40px;
+    background-color: #D7D9DD;
+}
