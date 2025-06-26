@@ -7,8 +7,8 @@ class ControlePlanos:
     #FUNCIONANDO TESTADO
     def buscarPlanoID(self, plano):
         self.conexao = ConexaoBD()
-        comandoSql = f'SELECT id_plano from tb_planos where nome_plano = "{plano}"'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'SELECT id_plano from tb_planos where nome_plano = %s'
+        self.conexao.cursor.execute(comandoSql, (plano, ))
         idPlano = self.conexao.cursor.fetchone()
         return idPlano[0]
     
@@ -16,8 +16,8 @@ class ControlePlanos:
     def buscarUmPlano(self, planos: Planos):
         self.conexao = ConexaoBD()
         id = self.buscarPlanoID(planos)
-        comandoSql = f'SELECT * FROM tb_planos where id_plano = {id}'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'SELECT * FROM tb_planos where id_plano = %s'
+        self.conexao.cursor.execute(comandoSql, (id, ))
         plano = self.conexao.cursor.fetchone()
         self.conexao.fecharConexao()
         print(plano)
@@ -35,8 +35,8 @@ class ControlePlanos:
     #TESTADO E FUNCIONANDO
     def addPlano(self, planos: Planos):
         self.conexao = ConexaoBD()
-        comandoSql = f'INSERT INTO tb_planos(nome_plano, descricao_plano, valor_plano) values("{planos.nomePlano}", "{planos.descricao}", {planos.valorPlano})'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'INSERT INTO tb_planos(nome_plano, descricao_plano, valor_plano) values(%s, %s, %s)'
+        self.conexao.cursor.execute(comandoSql, (planos.nomePlano, planos.descricao, planos.valorPlano))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 
@@ -45,13 +45,13 @@ class ControlePlanos:
         self.conexao = ConexaoBD()
         idPlano = self.buscarPlanoID(planos)
         if isinstance(valorEdicao, str):
-            edicaoStr = f'update tb_planos set {coluna} = "{valorEdicao}" where id_plano = {idPlano}'
-            self.conexao.cursor.execute(edicaoStr)
+            edicaoStr = f'update tb_planos set {coluna} = %s where id_plano = %s'
+            self.conexao.cursor.execute(edicaoStr, (valorEdicao, idPlano))
             self.conexao.conexao.commit()
             self.conexao.fecharConexao()
         else:
-            edicaoFloat = f'update tb_planos set {coluna} = {valorEdicao} where id_plano = {idPlano}'
-            self.conexao.cursor.execute(edicaoFloat)
+            edicaoFloat = f'update tb_planos set {coluna} = %s where id_plano = %s'
+            self.conexao.cursor.execute(edicaoFloat, (valorEdicao, idPlano))
             self.conexao.conexao.commit()
             self.conexao.fecharConexao()
 
@@ -59,8 +59,8 @@ class ControlePlanos:
     def delPlano(self, planos:Planos):
         self.conexao = ConexaoBD()
         idPlano = self.buscarPlanoID(planos)
-        comandoSql = f"delete from tb_planos where id_plano = {idPlano}"
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = "delete from tb_planos where id_plano = %s"
+        self.conexao.cursor.execute(comandoSql, (idPlano, ))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 

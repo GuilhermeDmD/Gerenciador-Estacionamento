@@ -41,14 +41,18 @@
         </div>
 
         <div class="container">
-            <a href="relatorio_diario.html" class="card">
-              <div>
-                <h3>Relatório Diário Financeiro</h3>
-              </div>
-            </a>
-            <a href="/download/relatorio-mensal" class="card">
-              <h3>Baixar Relatório Mensal</h3>
-            </a>
+            <a href="{{ url_for('download_relatorio', tipo='diario') }}">
+                <div class="card">
+                  <h3>Baixar Relatório Financeiro Diário</h3>
+                </div>
+              </a>
+              
+              <a href="{{ url_for('download_relatorio', tipo='mensal') }}">
+                <div class="card">
+                  <h3>Baixar Relatório Financeiro Mensal</h3>
+                </div>
+              </a>
+          
               </div>
             </a>
           </div>

@@ -13,8 +13,8 @@ class ControlePagamento:
     def pagamentoAvulso(self, veiculo:Veiculo):
         self.conexao = ConexaoBD()
         idVeiculo = self.veiculoControle.buscarIdVeiculo(veiculo)
-        comandoSql = f'select valor_total, id_veiculo_fk from tb_pagamento where id_veiculo_fk = {idVeiculo}'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'select valor_total, id_veiculo_fk from tb_pagamento where id_veiculo_fk = %s'
+        self.conexao.cursor.execute(comandoSql, (idVeiculo, ))
         infomacoesPag = self.conexao.cursor.fetchone()
         self.conexao.fecharConexao()
 
@@ -25,8 +25,8 @@ class ControlePagamento:
     def pagamentoMensal(self, cliente:Cliente):
         self.conexao = ConexaoBD()
         idCliente = self.clienteControle.buscaIdCliente(cliente)
-        comandoSql = f'select valor_total, id_cliente_fk from tb_pagamento where id_cliente_fk = {idCliente}'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'select valor_total, id_cliente_fk from tb_pagamento where id_cliente_fk = %s'
+        self.conexao.cursor.execute(comandoSql, (idCliente, ))
         informacoesPag = self.conexao.cursor.fetchone()
         self.conexao.fecharConexao()
 

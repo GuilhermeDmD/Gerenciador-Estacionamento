@@ -7,8 +7,8 @@ class ControleVaga:
     #FUNCIONANDO TESTADO
     def buscarIdVaga(self, localizacao):
         self.conexao = ConexaoBD()
-        comando = f'select id_vaga from tb_vagas where localizacao = "{localizacao}"'
-        self.conexao.cursor.execute(comando)
+        comando = 'select id_vaga from tb_vagas where localizacao = %s'
+        self.conexao.cursor.execute(comando, (localizacao, ))
         idVaga = self.conexao.cursor.fetchone()
         return idVaga[0] if idVaga else None 
     
@@ -60,16 +60,15 @@ class ControleVaga:
 
     def ocuparVaga(self, localizacao):
         self.conexao = ConexaoBD()
-        print(f"localizao paddasdajsd: {localizacao}")
         idVaga = self.buscarIdVaga(localizacao)
-        comandoSql = f'update tb_vagas set disponibilidade = "Ocupado" where id_vaga = {idVaga}'
-        self.conexao.cursor.execute(comandoSql)
+        comandoSql = 'update tb_vagas set disponibilidade = "Ocupado" where id_vaga = %s'
+        self.conexao.cursor.execute(comandoSql, (idVaga, ))
         self.conexao.conexao.commit()
         self.conexao.fecharConexao()
 
     def mostrarVagasOcupadas(self):
         self.conexao = ConexaoBD()
-        comandosql = f'select v.localizacao from tb_vagas v inner join tb_historico h on v.id_vaga = h.id_vaga_fk where v.disponibilidade = "Ocupado"'
+        comandosql = 'select v.localizacao from tb_veiculos vei inner join tb_historico h on vei.id_veiculo = h.id_veiculo_fk inner join tb_vagas v on h.id_vaga_fk = v.id_vaga where v.disponibilidade = "Ocupado" and vei.estado = "Estacionado"'
         self.conexao.cursor.execute(comandosql)
         resultado = self.conexao.cursor.fetchall()
         self.conexao.fecharConexao()

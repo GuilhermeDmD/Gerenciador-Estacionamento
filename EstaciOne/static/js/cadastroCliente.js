@@ -29,5 +29,15 @@ function buscarCliente(){
 
                 select.value = data.vaga;
             });
+
+            document.getElementById("modeloCliente").value = data.modelo;
+            document.getElementById("corCliente").value = data.cor;
+            document.getElementById("placaCliente").value = data.placa;
     });
+}
+
+function enviarPara(rota) {
+    const form = document.getElementById('formCliente');
+    form.action = rota;
+    form.submit();
 }
